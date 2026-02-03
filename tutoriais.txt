@@ -1,0 +1,7 @@
+PARA CRIAR UMA NOVA CARTA: locais a se alterar e atentar
+1 - card_dictionary.gd
+2 - verificar card_slot_generic
+3 - [tipo]_card_res.tres - criar
+4 - func receive_card no deck.gd
+5 - event_req_card_check no event_card_manager.gd
+6 - letter_to_type no event_card_manager.gd

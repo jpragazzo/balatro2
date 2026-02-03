@@ -1,18 +1,18 @@
-[gd_scene load_steps=22 format=3 uid="uid://diuo6tplhlwfn"]
+[gd_scene load_steps=23 format=3 uid="uid://diuo6tplhlwfn"]
 
-[ext_resource type="PackedScene" uid="uid://ctjnk36stbbh5" path="res://scenes/tabledark.tscn" id="1_xekhy"]
-[ext_resource type="Script" path="res://scripts/card_manager.gd" id="2_cmje1"]
-[ext_resource type="Script" path="res://scripts/player_hand.gd" id="3_jvpbs"]
-[ext_resource type="PackedScene" uid="uid://cqxn6767vob5b" path="res://scenes/deck.tscn" id="4_h2bbw"]
-[ext_resource type="Script" path="res://scripts/input_manager.gd" id="5_shxtj"]
-[ext_resource type="PackedScene" uid="uid://yli63mx0h43d" path="res://scenes/card_slot.tscn" id="6_ssbln"]
-[ext_resource type="PackedScene" uid="uid://vvvaxhpha2a5" path="res://scenes/weapon_slot.tscn" id="7_xxnxd"]
-[ext_resource type="PackedScene" uid="uid://cjgiwpv487vj8" path="res://scenes/armor_slot.tscn" id="8_dtkdi"]
-[ext_resource type="Script" path="res://scripts/card_slot_armor.gd" id="9_tgejs"]
-[ext_resource type="PackedScene" uid="uid://b8mb4i0ax2dv8" path="res://scenes/gold.tscn" id="10_42c7m"]
-[ext_resource type="PackedScene" uid="uid://b561nb00p3me5" path="res://scenes/event_deck.tscn" id="11_ildph"]
-[ext_resource type="Script" path="res://scripts/event_card_manager.gd" id="12_xi107"]
-[ext_resource type="Script" path="res://scripts/control.gd" id="13_q3rhg"]
+[ext_resource type="PackedScene" uid="uid://ctjnk36stbbh5" path="res://SCENES/tabledark.tscn" id="1_xekhy"]
+[ext_resource type="Script" path="res://SCRIPTS/Card/CARD_MANAGER.gd" id="2_yo032"]
+[ext_resource type="Script" path="res://SCRIPTS/Not cards/player_hand.gd" id="3_jvpbs"]
+[ext_resource type="PackedScene" uid="uid://cqxn6767vob5b" path="res://SCENES/deck.tscn" id="4_h2bbw"]
+[ext_resource type="Script" path="res://SCRIPTS/Not cards/INPUT_MANAGER.gd" id="5_shxtj"]
+[ext_resource type="PackedScene" uid="uid://yli63mx0h43d" path="res://SCENES/card_slot.tscn" id="6_ssbln"]
+[ext_resource type="PackedScene" uid="uid://vvvaxhpha2a5" path="res://SCENES/weapon_slot.tscn" id="7_xxnxd"]
+[ext_resource type="PackedScene" uid="uid://cjgiwpv487vj8" path="res://SCENES/armor_slot.tscn" id="8_dtkdi"]
+[ext_resource type="Script" path="res://SCRIPTS/Card Slots/card_slot_armor.gd" id="9_tgejs"]
+[ext_resource type="PackedScene" uid="uid://b8mb4i0ax2dv8" path="res://SCENES/gold.tscn" id="10_42c7m"]
+[ext_resource type="PackedScene" uid="uid://b561nb00p3me5" path="res://SCENES/event_deck.tscn" id="11_ildph"]
+[ext_resource type="Script" path="res://SCRIPTS/Card Events/EVENT_CARD_MANAGER.gd" id="12_xi107"]
+[ext_resource type="Script" path="res://SCRIPTS/Not cards/control.gd" id="13_q3rhg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83eum"]
 size = Vector2(1386, 271)
@@ -38,6 +38,9 @@ font_size = 32
 [sub_resource type="LabelSettings" id="LabelSettings_pnxpf"]
 font_size = 42
 
+[sub_resource type="LabelSettings" id="LabelSettings_h0vud"]
+font_size = 32
+
 [node name="MainScene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -46,7 +49,7 @@ position = Vector2(960, 540)
 [node name="Tabledark" parent="." instance=ExtResource("1_xekhy")]
 
 [node name="CardManager" type="Node2D" parent="."]
-script = ExtResource("2_cmje1")
+script = ExtResource("2_yo032")
 
 [node name="PlayerHand" type="Node2D" parent="."]
 script = ExtResource("3_jvpbs")
@@ -183,6 +186,15 @@ offset_bottom = 141.0
 theme_override_font_sizes/font_size = 24
 text = "RESET 
 GAME"
+
+[node name="Skip" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 1549.0
+offset_top = 376.0
+offset_right = 1614.0
+offset_bottom = 421.0
+text = "Skip"
+label_settings = SubResource("LabelSettings_h0vud")
 
 [node name="Label" type="Label" parent="."]
 offset_left = -502.0

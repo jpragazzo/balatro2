@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EventCard" load_steps=2 format=3 uid="uid://bxnetuuarldma"]
 
-[ext_resource type="Script" path="res://scripts/event_card_res.gd" id="1_q80la"]
+[ext_resource type="Script" path="res://SCRIPTS/Card Resources Scripts/events/event_card_res.gd" id="1_q80la"]
 
 [resource]
 script = ExtResource("1_q80la")
@@ -17,3 +17,4 @@ RequisitesAndRewards = {
 tier = 0
 name = "Give one!"
 description = "You must give one card. "
+skippable = 1

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BadLuckCard" load_steps=2 format=3 uid="uid://21qpcs7cgyv5"]
+
+[ext_resource type="Script" path="res://SCRIPTS/Card Resources Scripts/cards/badluck_card_res.gd" id="1_moxc6"]
+
+[resource]
+script = ExtResource("1_moxc6")
+name = "Badluck"
+card_type = 6
+tier = 0

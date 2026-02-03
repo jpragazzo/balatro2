@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://bpbqip4lpu2c3"]
 
-[ext_resource type="Script" path="res://scripts/Card.gd" id="1_8oaic"]
-[ext_resource type="Texture2D" uid="uid://dpvuvvidi2fuc" path="res://assets/genericcard.png" id="2_s2jg6"]
-[ext_resource type="Texture2D" uid="uid://ce487kfpett1y" path="res://assets/attack.png" id="3_03c8q"]
-[ext_resource type="Texture2D" uid="uid://p81vl53cf5jy" path="res://assets/health.png" id="4_q7x5l"]
-[ext_resource type="Texture2D" uid="uid://4n146clu0l1h" path="res://assets/shield.png" id="5_7fpg1"]
+[ext_resource type="Script" path="res://SCRIPTS/Card/Card.gd" id="1_bgg7d"]
+[ext_resource type="Texture2D" uid="uid://dpvuvvidi2fuc" path="res://ASSETS/Other/genericcard.png" id="2_atpol"]
+[ext_resource type="Texture2D" uid="uid://cidw44rl1443v" path="res://ASSETS/Other/attack.png" id="3_mad71"]
+[ext_resource type="Texture2D" uid="uid://bvfi5u7m0tkvw" path="res://ASSETS/Other/health.png" id="4_meh2t"]
+[ext_resource type="Texture2D" uid="uid://4n146clu0l1h" path="res://ASSETS/Other/shield.png" id="5_ehdyy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bttkx"]
 size = Vector2(120, 156)
@@ -17,7 +17,7 @@ font = SubResource("SystemFont_52fio")
 
 [node name="Card" type="Node2D"]
 z_index = 1
-script = ExtResource("1_8oaic")
+script = ExtResource("1_bgg7d")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -29,7 +29,7 @@ shape = SubResource("RectangleShape2D_bttkx")
 modulate = Color(0.850302, 0.717172, 0.847622, 1)
 position = Vector2(0, -1)
 scale = Vector2(3.5, 3.5)
-texture = ExtResource("2_s2jg6")
+texture = ExtResource("2_atpol")
 
 [node name="Attack" type="RichTextLabel" parent="."]
 modulate = Color(0.133333, 0.133333, 0.133333, 1)
@@ -71,17 +71,17 @@ horizontal_alignment = 1
 [node name="Attack2" type="Sprite2D" parent="."]
 position = Vector2(-49, 43)
 scale = Vector2(2, 2)
-texture = ExtResource("3_03c8q")
+texture = ExtResource("3_mad71")
 
 [node name="Health2" type="Sprite2D" parent="."]
 position = Vector2(45, 42)
 scale = Vector2(2, 2)
-texture = ExtResource("4_q7x5l")
+texture = ExtResource("4_meh2t")
 
 [node name="Shield" type="Sprite2D" parent="."]
 position = Vector2(47, 45)
 scale = Vector2(2, 2)
-texture = ExtResource("5_7fpg1")
+texture = ExtResource("5_ehdyy")
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_generic_card_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_generic_card_mouse_exited"]

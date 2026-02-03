@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ctjnk36stbbh5"]
 
-[ext_resource type="Texture2D" uid="uid://mhdo3wgnvehb" path="res://assets/tabledark.jpg" id="1_dm76t"]
+[ext_resource type="Texture2D" uid="uid://mhdo3wgnvehb" path="res://ASSETS/Other/tabledark.jpg" id="1_dm76t"]
 
 [node name="Node2D" type="Node2D"]
 z_index = -2

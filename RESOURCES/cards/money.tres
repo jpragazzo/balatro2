@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MoneyCard" load_steps=2 format=3 uid="uid://jybptonlcuhu"]
+
+[ext_resource type="Script" path="res://SCRIPTS/Card Resources Scripts/cards/money_card_res.gd" id="1_fa87l"]
+
+[resource]
+script = ExtResource("1_fa87l")
+name = "Money"
+card_type = 5
+tier = 0

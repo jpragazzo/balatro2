@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b8mb4i0ax2dv8"]
 
-[ext_resource type="Texture2D" uid="uid://p46b4hmwnlap" path="res://assets/money.png" id="1_xv6wj"]
+[ext_resource type="Texture2D" uid="uid://p46b4hmwnlap" path="res://ASSETS/Other/money.png" id="1_xv6wj"]
 
 [node name="Gold" type="Node2D"]
 

@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="balatro2"
-run/main_scene="res://scenes/main_scene.tscn"
+run/main_scene="res://SCENES/main_scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://assets/icon.svg"
+config/icon="res://ASSETS/Other/icon.svg"
 
 [autoload]
 
-CardDictionary="*res://scripts/card_dictionary.gd"
+CardDictionary="*res://SCRIPTS/Card/card_dictionary.gd"
 
 [display]
 
