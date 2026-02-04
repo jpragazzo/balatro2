@@ -8,6 +8,7 @@ var event_deck = ["give2cards", "receive2cards", "give1cards", "hunger", "blacks
 @onready var control: Control = $"../Control"
 	
 func draw_event_card():
+	
 	event_deck.shuffle()
 	
 	var event_card_drawn = event_deck[0]
@@ -25,7 +26,11 @@ func draw_event_card():
 	
 	update_event_card_position(new_card, Vector2(self.position.x - 170, self.position.y), Vector2(1.4,1.4))
 
-		
+func add_events_from_cards_in_hand():
+	var current_player_hand = player_hand.player_hand #IS AN ARRAY
+	
+	#ADD LOGIC
+
 func update_event_card_position(event_card, new_position, new_scale):
 	var tween = get_tree().create_tween()
 	tween.tween_property(event_card, "position", new_position, 0.2)

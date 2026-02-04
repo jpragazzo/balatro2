@@ -244,6 +244,7 @@ func event_rew_card_give() -> void:
 		rewards.append(card_name) #QUANTAS CARTAS PRECISA-SE ENTREGAR
 
 	if rewards.is_empty():
+		finish_event()
 		score()
 		return # nada a fazer
 
@@ -270,18 +271,10 @@ func event_rew_card_give() -> void:
 		return
 
 func finish_event():
-	var tween = get_tree().create_tween()
-	tween.tween_property(global_event_card, "scale", Vector2(0.0,0.0), 1.5).set_trans(Tween.TRANS_ELASTIC)
-		
-	control.error_message("Event complete! Congrats!")
-	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = true
 
-	await tween.finished
-
-	global_event_card.queue_free()
-	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = false
-
+	erase_global_event_and_block_buttons()
 	unlock_current_event_and_deactivate_skip()
+	add_events_from_cards_in_hand()
 
 func skip_event():
 	if global_event_card == null:
@@ -299,7 +292,26 @@ func skip_event():
 				deck.instantiate_card("bad_luck", deck.position)
 			_:
 				pass
-		
+
+func erase_global_event_and_block_buttons():
+	var tween = get_tree().create_tween()
+	tween.tween_property(global_event_card, "scale", Vector2(0.0,0.0), 1.5).set_trans(Tween.TRANS_ELASTIC)
+	control.error_message("Event complete! Congrats!")
+	
+	disable_doit_button()
+
+	await tween.finished
+	global_event_card.queue_free()
+	
+	enable_doit_button()
+
+func disable_doit_button():
+	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = true
+func enable_doit_button():
+	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = false
+
+func add_events_from_cards_in_hand():
+	event_deck.add_events_from_cards_in_hand()
 
 func animate_cards(array_of_cards_to_destroy, array_of_slots_to_free):
 	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = false
