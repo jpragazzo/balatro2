@@ -18,3 +18,4 @@ tier = 0
 name = "Give two!"
 description = "Now, you must give two cards!"
 skippable = 1
+bad_luck_cards_if_skip = 1

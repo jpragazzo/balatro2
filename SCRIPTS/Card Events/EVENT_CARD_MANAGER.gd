@@ -11,10 +11,13 @@ var current_score := 0
 @onready var deck: Node2D = $"../Deck"
 const CARD = preload("res://scenes/Card.tscn")
 
-func start_event(event_card):
+func start_event(event_card): #chamada no event_deck quando clica na area do deck
 	global_event_card = event_card
+	#await event_req_card_check()
 	event_requisites_write(event_card)
-	lock_current_event()
+	lock_current_event_and_activate_skip()
+	
+#func end_event(event_card)
 
 func get_event_requisites_cards(event_card):
 	if event_card.resource.RequisitesAndRewards["requisites"]["cards"].size() != 0:
@@ -75,14 +78,14 @@ func event_rewards_write(event_card): #WRITE REWARDS ON CARD
 	else:
 		print('wutuheeeeell') 
 
-func lock_current_event():
+func lock_current_event_and_activate_skip():
 	event_active = true #CANNOT HAVE MORE THAN ONE PER TURN
 	event_deck.get_node("Area2D/CollisionShape2D").disabled = true
-
-func unlock_current_event():
+	control.activate_skip_button()
+func unlock_current_event_and_deactivate_skip():
 	event_active = false #CANNOT HAVE MORE THAN ONE PER TURN
 	event_deck.get_node("Area2D/CollisionShape2D").disabled = false
-	score()
+	control.deactivate_skip_button()
 	
 func score():
 	current_score += 1
@@ -213,18 +216,9 @@ func event_req_card_check():
 	# 8. Anima, recompensa e finaliza evento
 	# -----------------------------------------
 	animate_cards(array_of_cards_to_destroy, array_of_slots_to_free)
+	
 	event_rew_card_give()
 
-	var tween = get_tree().create_tween()
-	tween.tween_property(global_event_card, "scale", Vector2(0,0), 1.5).set_trans(Tween.TRANS_ELASTIC)
-
-	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = true
-	control.error_message("Event complete! Congrats!")
-	await tween.finished
-	global_event_card.queue_free()
-	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = false
-
-	unlock_current_event()
 	return 1
 
 func letter_to_type(letter, _unused):
@@ -250,6 +244,7 @@ func event_rew_card_give() -> void:
 		rewards.append(card_name) #QUANTAS CARTAS PRECISA-SE ENTREGAR
 
 	if rewards.is_empty():
+		score()
 		return # nada a fazer
 
 	var free_slots: Array[StringName] = [] #QUANTOS SLOTS LIVRES TEMOS PARA ENTREGAR
@@ -268,16 +263,43 @@ func event_rew_card_give() -> void:
 		
 			deck.receive_card(card_name, pos)
 
-		var tween = get_tree().create_tween()
-		tween.tween_property(global_event_card, "scale", Vector2(0.0,0.0), 1.5).set_trans(Tween.TRANS_ELASTIC)
-		
-		control.error_message("Event complete! Congrats!")
-		await tween.finished
-		global_event_card.queue_free()
-		unlock_current_event()
+		finish_event()
+		score()
 	else:
 		control.error_message("Free up the slots, take your cards!")
 		return
+
+func finish_event():
+	var tween = get_tree().create_tween()
+	tween.tween_property(global_event_card, "scale", Vector2(0.0,0.0), 1.5).set_trans(Tween.TRANS_ELASTIC)
+		
+	control.error_message("Event complete! Congrats!")
+	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = true
+
+	await tween.finished
+
+	global_event_card.queue_free()
+	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = false
+
+	unlock_current_event_and_deactivate_skip()
+
+func skip_event():
+	if global_event_card == null:
+		control.error_message("No event active at this moment!")
+		return -1
+	else:
+		match global_event_card.resource.skippable:
+			0:
+				print("freetoskip")
+				finish_event()
+				control.error_message("Event skipped!")
+			1:
+				print("badluck")
+				finish_event()
+				deck.instantiate_card("bad_luck", deck.position)
+			_:
+				pass
+		
 
 func animate_cards(array_of_cards_to_destroy, array_of_slots_to_free):
 	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = false

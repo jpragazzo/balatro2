@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://diuo6tplhlwfn"]
+[gd_scene load_steps=24 format=3 uid="uid://diuo6tplhlwfn"]
 
 [ext_resource type="PackedScene" uid="uid://ctjnk36stbbh5" path="res://SCENES/tabledark.tscn" id="1_xekhy"]
 [ext_resource type="Script" path="res://SCRIPTS/Card/CARD_MANAGER.gd" id="2_yo032"]
@@ -23,6 +23,12 @@ font_size = 32
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85s3g"]
 size = Vector2(86, 42)
 
+[sub_resource type="LabelSettings" id="LabelSettings_h0vud"]
+font_size = 32
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3wxf7"]
+size = Vector2(71.75, 38)
+
 [sub_resource type="LabelSettings" id="LabelSettings_mgmfn"]
 font_size = 24
 
@@ -37,9 +43,6 @@ font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_pnxpf"]
 font_size = 42
-
-[sub_resource type="LabelSettings" id="LabelSettings_h0vud"]
-font_size = 32
 
 [node name="MainScene" type="Node2D"]
 
@@ -122,6 +125,24 @@ collision_mask = 32
 position = Vector2(955, 397)
 shape = SubResource("RectangleShape2D_85s3g")
 
+[node name="Skip" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 1549.0
+offset_top = 365.0
+offset_right = 1614.0
+offset_bottom = 410.0
+pivot_offset = Vector2(32, 22)
+text = "Skip"
+label_settings = SubResource("LabelSettings_h0vud")
+
+[node name="SkipLabelArea" type="Area2D" parent="Control/Skip"]
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Skip/SkipLabelArea"]
+position = Vector2(32, 23)
+shape = SubResource("RectangleShape2D_3wxf7")
+
 [node name="Errors" type="Label" parent="Control"]
 layout_mode = 0
 offset_left = 745.0
@@ -187,15 +208,6 @@ theme_override_font_sizes/font_size = 24
 text = "RESET 
 GAME"
 
-[node name="Skip" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 1549.0
-offset_top = 376.0
-offset_right = 1614.0
-offset_bottom = 421.0
-text = "Skip"
-label_settings = SubResource("LabelSettings_h0vud")
-
 [node name="Label" type="Label" parent="."]
 offset_left = -502.0
 offset_top = 492.0
@@ -211,5 +223,7 @@ text = "enum CardType {
 
 [connection signal="mouse_entered" from="Control/DoIt/DoItLabelArea" to="Control" method="_on_label_mouse_entered"]
 [connection signal="mouse_exited" from="Control/DoIt/DoItLabelArea" to="Control" method="_on_label_mouse_exited"]
+[connection signal="mouse_entered" from="Control/Skip/SkipLabelArea" to="Control" method="_on_skip_label_area_mouse_entered"]
+[connection signal="mouse_exited" from="Control/Skip/SkipLabelArea" to="Control" method="_on_skip_label_area_mouse_exited"]
 [connection signal="pressed" from="Control/ResetHighScore" to="Control" method="_on_reset_high_score_button_pressed"]
 [connection signal="pressed" from="Control/ResetGame" to="Control" method="_on_reset_game_pressed"]

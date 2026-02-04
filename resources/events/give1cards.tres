@@ -18,3 +18,4 @@ tier = 0
 name = "Give one!"
 description = "You must give one card. "
 skippable = 1
+bad_luck_cards_if_skip = 1

@@ -56,6 +56,8 @@ func raycast_at_cursor():
 			match collider.name:
 				"DoItLabelArea": 
 					control.do_it_button_pressed()
+				"SkipLabelArea":
+					control.skip_button_pressed()
 				_: 
 					printerr("This button does not have any input_manager action yet: ", collider.name, collider)
 			

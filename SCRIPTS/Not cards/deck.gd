@@ -85,12 +85,12 @@ func get_random_card_from_set_card_type(card_type, card_dictionary, random_card,
 		instantiate_card(random_card, slot_pos)
 	
 
-func instantiate_card(random_card, slot_pos):
+func instantiate_card(card: String, slot_pos: Vector2):
 		var new_card = card_scene.instantiate()
 
 		new_card.position = slot_pos
-		new_card.get_node("CardSprite").texture = load("res://ASSETS/Card pngs/"+ random_card +".png")
-		new_card.resource = load("res://resources/cards/" + random_card + ".tres")
+		new_card.get_node("CardSprite").texture = load("res://ASSETS/Card pngs/"+ card +".png")
+		new_card.resource = load("res://resources/cards/" + card + ".tres")
 		
 		new_card.card_type = new_card.resource.card_type
 		new_card.card_tier = new_card.resource.tier
@@ -98,5 +98,5 @@ func instantiate_card(random_card, slot_pos):
 		new_card.get_node("Name").horizontal_alignment = 1
 					
 		card_manager.add_child(new_card)
-		new_card.name = random_card
+		new_card.name = card
 		player_hand.add_card_to_hand(new_card)
