@@ -125,6 +125,10 @@ collision_mask = 32
 position = Vector2(955, 397)
 shape = SubResource("RectangleShape2D_85s3g")
 
+[node name="DoitTimer" type="Timer" parent="Control/DoIt"]
+wait_time = 3.0
+one_shot = true
+
 [node name="Skip" type="Label" parent="Control"]
 layout_mode = 0
 offset_left = 1549.0
@@ -140,7 +144,7 @@ collision_layer = 32
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Control/Skip/SkipLabelArea"]
-position = Vector2(32, 23)
+position = Vector2(33, 21)
 shape = SubResource("RectangleShape2D_3wxf7")
 
 [node name="Errors" type="Label" parent="Control"]
@@ -223,6 +227,7 @@ text = "enum CardType {
 
 [connection signal="mouse_entered" from="Control/DoIt/DoItLabelArea" to="Control" method="_on_label_mouse_entered"]
 [connection signal="mouse_exited" from="Control/DoIt/DoItLabelArea" to="Control" method="_on_label_mouse_exited"]
+[connection signal="timeout" from="Control/DoIt/DoitTimer" to="Control" method="_on_doit_timer_timeout"]
 [connection signal="mouse_entered" from="Control/Skip/SkipLabelArea" to="Control" method="_on_skip_label_area_mouse_entered"]
 [connection signal="mouse_exited" from="Control/Skip/SkipLabelArea" to="Control" method="_on_skip_label_area_mouse_exited"]
 [connection signal="pressed" from="Control/ResetHighScore" to="Control" method="_on_reset_high_score_button_pressed"]

@@ -6,6 +6,7 @@ extends Control
 @onready var skip: Label = $Skip
 @onready var high_score_number: Label = $ScoresVBox/HighScoreHBox/HighScoreNUMBER
 @onready var current_score_number: Label = $ScoresVBox/CurrentScoreHBox/CurrentScoreNUMBER
+@onready var doit_timer: Timer = $DoIt/DoitTimer
 
 var save_file_path = "res://saves/savefile.save"
 var high_score
@@ -27,6 +28,7 @@ func do_it_button_pressed():
 	await event_card_manager.event_req_card_check()
 func skip_button_pressed():
 	event_card_manager.skip_event()
+
 func activate_skip_button():
 	print("activate")
 	skip.get_node("SkipLabelArea/CollisionShape2D").disabled = false
@@ -37,6 +39,11 @@ func deactivate_skip_button():
 	skip.get_node("SkipLabelArea/CollisionShape2D").disabled = true
 	var tween = get_tree().create_tween()
 	tween.tween_property(skip, "modulate", Color(1,1,1,0), 0.23)
+	
+func activate_doit_button():
+	do_it.get_node("DoItLabelArea/CollisionShape2D").disabled = false
+func deactivate_doit_button():
+	do_it.get_node("DoItLabelArea/CollisionShape2D").disabled = true
 	
 	
 func _on_reset_game_pressed() -> void:
@@ -72,16 +79,18 @@ func save(highest_score):
 	file.store_var(highest_score)
 	
 func error_message(text):
-	errors.modulate = Color(1,1,1,0) # garante alpha 0
-	errors.text = text
-
-	var tween = get_tree().create_tween()
-	tween.tween_property(errors, "modulate", Color(1,1,1,0.7), 0.23)
 	
-	await get_tree().create_timer(3.0).timeout
+	errors.text = text
+	print("text")
+	
+	if doit_timer.time_left == 0:
+		errors.modulate = Color(1,1,1,0) # garante alpha 0
 
-	var tween2 = get_tree().create_tween()
-	tween2.tween_property(errors, "modulate", Color(1,1,1,0), 0.3)
+		var tween = get_tree().create_tween()
+		tween.tween_property(errors, "modulate", Color(1,1,1,0.7), 0.23)
+		
+	doit_timer.start()
+		
 
 
 func set_hs(new_high_score):
@@ -104,3 +113,13 @@ func _on_skip_label_area_mouse_entered() -> void:
 func _on_skip_label_area_mouse_exited() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property($Skip, "scale", Vector2(1, 1), 0.23).set_trans(Tween.TRANS_EXPO)
+
+
+func _on_doit_timer_timeout() -> void:
+	print("timeout")
+	var tween2 = get_tree().create_tween()
+	tween2.tween_property(errors, "modulate", Color(1,1,1,0), 0.3)
+
+func _process(delta: float) -> void:
+	#print(doit_timer.time_left)
+	pass

@@ -15,8 +15,8 @@ func start_event(event_card): #chamada no event_deck quando clica na area do dec
 	global_event_card = event_card
 	#await event_req_card_check()
 	event_requisites_write(event_card)
-	lock_current_event_and_activate_skip()
-	
+	lock_current_event()
+	enable_skip()
 #func end_event(event_card)
 
 func get_event_requisites_cards(event_card):
@@ -78,14 +78,12 @@ func event_rewards_write(event_card): #WRITE REWARDS ON CARD
 	else:
 		print('wutuheeeeell') 
 
-func lock_current_event_and_activate_skip():
+func lock_current_event():
 	event_active = true #CANNOT HAVE MORE THAN ONE PER TURN
 	event_deck.get_node("Area2D/CollisionShape2D").disabled = true
-	control.activate_skip_button()
-func unlock_current_event_and_deactivate_skip():
+func unlock_current_event():
 	event_active = false #CANNOT HAVE MORE THAN ONE PER TURN
 	event_deck.get_node("Area2D/CollisionShape2D").disabled = false
-	control.deactivate_skip_button()
 	
 func score():
 	current_score += 1
@@ -273,7 +271,6 @@ func event_rew_card_give() -> void:
 func finish_event():
 
 	erase_global_event_and_block_buttons()
-	unlock_current_event_and_deactivate_skip()
 	add_events_from_cards_in_hand()
 
 func skip_event():
@@ -284,32 +281,40 @@ func skip_event():
 		match global_event_card.resource.skippable:
 			0:
 				print("freetoskip")
-				finish_event()
 				control.error_message("Event skipped!")
+				finish_event()
 			1:
 				print("badluck")
-				finish_event()
 				deck.instantiate_card("bad_luck", deck.position)
+				control.error_message("Event skipped!")
+				finish_event()
 			_:
 				pass
+		disable_skip()
 
 func erase_global_event_and_block_buttons():
 	var tween = get_tree().create_tween()
 	tween.tween_property(global_event_card, "scale", Vector2(0.0,0.0), 1.5).set_trans(Tween.TRANS_ELASTIC)
-	control.error_message("Event complete! Congrats!")
 	
-	disable_doit_button()
-
+	disable_doit()
+	disable_skip()
+	
 	await tween.finished
 	global_event_card.queue_free()
 	
-	enable_doit_button()
+	unlock_current_event()
+	
+	enable_doit()
 
-func disable_doit_button():
-	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = true
-func enable_doit_button():
-	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = false
-
+func disable_doit():
+	control.deactivate_doit_button()
+func enable_doit():
+	control.activate_doit_button()
+func disable_skip():
+	control.deactivate_skip_button()
+func enable_skip():
+	control.activate_skip_button()
+	
 func add_events_from_cards_in_hand():
 	event_deck.add_events_from_cards_in_hand()
 
