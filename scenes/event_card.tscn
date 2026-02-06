@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://5cajnlheimin"]
+[gd_scene load_steps=24 format=3 uid="uid://5cajnlheimin"]
 
 [ext_resource type="Script" path="res://SCRIPTS/Card Events/EventCard.gd" id="1_2sl4a"]
 [ext_resource type="Texture2D" uid="uid://bwvkp7r3pv80q" path="res://ASSETS/Card pngs/event_card.png" id="1_333o4"]
+[ext_resource type="Texture2D" uid="uid://cuwtfceb8uk4l" path="res://ASSETS/Other/icons.png" id="3_32fbt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0ko3g"]
 size = Vector2(120, 156)
@@ -15,6 +16,159 @@ font_size = 12
 
 [sub_resource type="LabelSettings" id="LabelSettings_ubgee"]
 font_size = 12
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_io5p5"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_68dyt"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mxq3"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yt5f"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8yl8"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uac6s"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owlyd"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8eojh"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1rro"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6a0do"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2n70"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r5hkk"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wcrd"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nfmjv"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8fae"]
+atlas = ExtResource("3_32fbt")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s3yuq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_io5p5")
+}],
+"loop": true,
+"name": &"armor",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68dyt")
+}],
+"loop": true,
+"name": &"badluck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7mxq3")
+}],
+"loop": true,
+"name": &"consumable",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yt5f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8yl8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uac6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owlyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8eojh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1rro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6a0do")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2n70")
+}],
+"loop": true,
+"name": &"empty",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r5hkk")
+}],
+"loop": false,
+"name": &"generic",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wcrd")
+}],
+"loop": true,
+"name": &"money",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nfmjv")
+}],
+"loop": false,
+"name": &"monster",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8fae")
+}],
+"loop": true,
+"name": &"weapon",
+"speed": 5.0
+}]
 
 [node name="EventCard" type="Node2D"]
 z_index = 1
@@ -89,3 +243,56 @@ offset_right = -11.0
 offset_bottom = 54.3333
 text = "Take:"
 label_settings = SubResource("LabelSettings_ubgee")
+
+[node name="RequisitesSprites" type="Node2D" parent="."]
+
+[node name="ReqSprite1" type="AnimatedSprite2D" parent="RequisitesSprites"]
+position = Vector2(-13, 7)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_s3yuq")
+animation = &"generic"
+
+[node name="ReqSprite2" type="AnimatedSprite2D" parent="RequisitesSprites"]
+position = Vector2(3, 7)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_s3yuq")
+animation = &"generic"
+
+[node name="ReqSprite3" type="AnimatedSprite2D" parent="RequisitesSprites"]
+position = Vector2(19, 7)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_s3yuq")
+animation = &"monster"
+
+[node name="ReqSprite5" type="AnimatedSprite2D" parent="RequisitesSprites"]
+position = Vector2(35, 7)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_s3yuq")
+animation = &"monster"
+
+[node name="RewardsSprites" type="Node2D" parent="."]
+position = Vector2(1, 35)
+
+[node name="RewSprite1" type="AnimatedSprite2D" parent="RewardsSprites"]
+position = Vector2(-13, 7)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_s3yuq")
+animation = &"monster"
+
+[node name="RewSprite2" type="AnimatedSprite2D" parent="RewardsSprites"]
+position = Vector2(3, 7)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_s3yuq")
+animation = &"monster"
+
+[node name="RewSprite3" type="AnimatedSprite2D" parent="RewardsSprites"]
+position = Vector2(19, 7)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_s3yuq")
+animation = &"monster"
+
+[node name="RewSprite4" type="AnimatedSprite2D" parent="RewardsSprites"]
+position = Vector2(35, 7)
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_s3yuq")
+animation = &"monster"

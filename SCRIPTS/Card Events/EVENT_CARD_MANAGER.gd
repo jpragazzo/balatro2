@@ -2,7 +2,7 @@ extends Node2D
 
 var event_active: bool
 var global_event_card 
-var current_score := 0 
+var current_score := 0
 
 @onready var event_deck: Node2D = $"../EventDeck"
 @onready var slot_manager: Node2D = $"../SlotManager"
@@ -17,6 +17,8 @@ func start_event(event_card): #chamada no event_deck quando clica na area do dec
 	event_requisites_write(event_card)
 	lock_current_event()
 	enable_skip()
+	match_icon()
+	show_icons()
 #func end_event(event_card)
 
 func get_event_requisites_cards(event_card):
@@ -69,6 +71,8 @@ func event_requisites_write(event_card): #WRITE REQUISITES ON CARD
 		event_card.get_node("EventRewards").text += card
 func event_rewards_write(event_card): #WRITE REWARDS ON CARD
 	var reqsandrew = event_card.resource.RequisitesAndRewards
+	
+	
 	
 	if reqsandrew["rewards"]["cards"].size() != 0 or reqsandrew["rewards"]["events"].size() != 0:
 		for i in reqsandrew["rewards"]["cards"]:
@@ -233,6 +237,58 @@ func letter_to_type(letter, _unused):
 
 	push_warning("Requisite inválido: " + str(letter))
 	return null
+	
+func match_icon():
+	var reqsandrew = global_event_card.resource.RequisitesAndRewards
+	
+	for u in global_event_card.get_node("RequisitesSprites").get_children().size():
+		global_event_card.get_node("RequisitesSprites").get_child(u).visible = true
+		global_event_card.get_node("RequisitesSprites").get_child(u).set_animation("empty")
+	
+	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
+		for k in reqsandrew["requisites"]["cards"].size():
+			var card_letter = reqsandrew["requisites"]["cards"][k]
+			print("card_letter:" + card_letter)
+			global_event_card.get_node("RequisitesSprites/ReqSprite" + str(k + 1)).set_animation(return_animation_name_from_letter(card_letter))
+			print(global_event_card.get_node("RequisitesSprites/ReqSprite" + str(k + 1)).get_animation())
+		for j in reqsandrew["requisites"]["events"]:
+			pass
+	else:
+		print(reqsandrew["rewards"]["cards"].size())
+		print(reqsandrew["rewards"]["events"].size())
+		print('wutuheeeeell2') 
+
+func show_icons():
+	var reqsandrew = global_event_card.resource.RequisitesAndRewards
+
+	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
+		for i in reqsandrew["requisites"]["cards"].size():
+			var card_letter = reqsandrew["requisites"]["cards"][i]
+			print("node visible:" + str(global_event_card.get_node("RequisitesSprites").get_child(i)))
+			global_event_card.get_node("RequisitesSprites").get_child(i).visible = true
+		for j in reqsandrew["requisites"]["events"]:
+			pass
+
+func return_animation_name_from_letter(card_letter) -> String:
+	match card_letter:
+		"w":
+			return "weapon"
+		"c":
+			return "consumable"
+		"m":
+			return "monster"
+		"$":
+			return "money"
+		"b":
+			return "badluck"
+		"a":
+			return "armor"
+		"g":
+			return "generic"
+		_:
+			return "invalid"
+
+
 
 func event_rew_card_give() -> void:
 	var rewards: PackedStringArray = []
