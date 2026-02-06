@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EventCard" load_steps=2 format=3 uid="uid://gd54kkrxniie"]
+
+[ext_resource type="Script" path="res://SCRIPTS/Card Resources Scripts/events/event_card_res.gd" id="1_xh2aj"]
+
+[resource]
+script = ExtResource("1_xh2aj")
+RequisitesAndRewards = {
+"requisites": {
+"cards": ["c", "$", "$"],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+tier = 0
+name = "Thievery"
+description = "This isn't your day. They took it all."
+skippable = 1
+bad_luck_cards_if_skip = 3

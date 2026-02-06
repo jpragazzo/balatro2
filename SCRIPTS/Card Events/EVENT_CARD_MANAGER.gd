@@ -299,7 +299,6 @@ func return_animation_name_from_letter(card_letter) -> String:
 			return "invalid"
 
 
-
 func event_rew_card_give() -> void:
 	var rewards: PackedStringArray = []
 	
@@ -308,6 +307,7 @@ func event_rew_card_give() -> void:
 		rewards.append(card_name) #QUANTAS CARTAS PRECISA-SE ENTREGAR
 
 	if rewards.is_empty():
+		control.error_message("Event Completed! Congrats!")
 		finish_event()
 		score()
 		return # nada a fazer
@@ -327,7 +327,8 @@ func event_rew_card_give() -> void:
 			var card_name = rewards[index]
 		
 			deck.receive_card(card_name, pos)
-
+		
+		control.error_message("Event Completed! Congrats!")
 		finish_event()
 		score()
 	else:
@@ -351,7 +352,8 @@ func skip_event():
 				finish_event()
 			1:
 				print("badluck")
-				deck.instantiate_card("bad_luck", deck.position)
+				for i in global_event_card.resource.bad_luck_cards_if_skip:
+					deck.instantiate_card("bad_luck", deck.position)
 				control.error_message("Event skipped!")
 				finish_event()
 			_:
@@ -385,7 +387,7 @@ func add_events_from_cards_in_hand():
 	event_deck.add_events_from_cards_in_hand()
 
 func animate_cards(array_of_cards_to_destroy, array_of_slots_to_free):
-	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = false
+	enable_doit()
 	for card in array_of_cards_to_destroy:
 		var tween = get_tree().create_tween()
 		tween.tween_property(card, "scale", Vector2(0.0,0.0), 1.5).set_trans(Tween.TRANS_ELASTIC)

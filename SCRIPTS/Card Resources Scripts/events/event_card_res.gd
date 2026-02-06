@@ -12,6 +12,7 @@ class_name EventCard
 	},
 }
 
+
 enum EventCardTier {
 	ONE,
 	TWO,

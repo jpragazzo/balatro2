@@ -14,7 +14,8 @@ var reset_high_score_value := 0
 
 
 func _ready() -> void:
-	errors.visible = false
+	errors.visible = true
+	error_message("")
 	skip.modulate = Color(0, 0, 0, 0)
 	
 	current_score_number.text = "0"

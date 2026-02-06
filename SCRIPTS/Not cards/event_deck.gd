@@ -1,6 +1,6 @@
 extends Node2D
 
-var event_deck = ["give2cards", "receive2cards", "give1cards", "hunger", "blacksmith", "thebutcher"]
+var event_deck = ["give2cards", "receive2cards", "give1cards", "hunger", "blacksmith", "thebutcher", "thievery"]
 
 @onready var player_hand: Node2D = $"../PlayerHand"
 @onready var card_manager: Node2D = $"../CardManager"
