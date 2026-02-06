@@ -131,10 +131,10 @@ one_shot = true
 
 [node name="Skip" type="Label" parent="Control"]
 layout_mode = 0
-offset_left = 1549.0
-offset_top = 365.0
-offset_right = 1614.0
-offset_bottom = 410.0
+offset_left = 1538.0
+offset_top = 333.0
+offset_right = 1603.0
+offset_bottom = 378.0
 pivot_offset = Vector2(32, 22)
 text = "Skip"
 label_settings = SubResource("LabelSettings_h0vud")

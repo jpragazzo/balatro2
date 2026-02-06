@@ -14,7 +14,7 @@ const CARD = preload("res://scenes/Card.tscn")
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
 	global_event_card = event_card
 	#await event_req_card_check()
-	event_requisites_write(event_card)
+	#event_requisites_write(event_card) #COMENTING BECAUSE WE HAVE ICONS NOW
 	lock_current_event()
 	enable_skip()
 	match_icon()
@@ -238,27 +238,35 @@ func letter_to_type(letter, _unused):
 	push_warning("Requisite inválido: " + str(letter))
 	return null
 	
-func match_icon():
+func match_icon(): #STILL NEED EVENT PART
 	var reqsandrew = global_event_card.resource.RequisitesAndRewards
 	
 	for u in global_event_card.get_node("RequisitesSprites").get_children().size():
 		global_event_card.get_node("RequisitesSprites").get_child(u).visible = true
 		global_event_card.get_node("RequisitesSprites").get_child(u).set_animation("empty")
+		global_event_card.get_node("RewardsSprites").get_child(u).visible = true
+		global_event_card.get_node("RewardsSprites").get_child(u).set_animation("empty")
 	
 	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
 		for k in reqsandrew["requisites"]["cards"].size():
 			var card_letter = reqsandrew["requisites"]["cards"][k]
-			print("card_letter:" + card_letter)
-			global_event_card.get_node("RequisitesSprites/ReqSprite" + str(k + 1)).set_animation(return_animation_name_from_letter(card_letter))
-			print(global_event_card.get_node("RequisitesSprites/ReqSprite" + str(k + 1)).get_animation())
-		for j in reqsandrew["requisites"]["events"]:
-			pass
+			global_event_card.get_node("RequisitesSprites").get_children()[k].set_animation(return_animation_name_from_letter(card_letter))
+		#for j in reqsandrew["requisites"]["events"].size():
+			#var event_letter = reqsandrew["requisites"]["events"][j]
+			#global_event_card.get_node("RequisitesSprites").get_children()[j].set_animation(return_animation_name_from_letter(event_letter))
+	if reqsandrew["rewards"]["cards"].size() != 0 or reqsandrew["rewards"]["events"].size() != 0:
+		for j in reqsandrew["rewards"]["cards"].size():
+			var card_letter = reqsandrew["rewards"]["cards"][j]
+			global_event_card.get_node("RewardsSprites").get_children()[j].set_animation(return_animation_name_from_letter(card_letter))
+		#for j in reqsandrew["rewards"]["events"].size():
+			#var event_letter = reqsandrew["rewards"]["events"][j]
+			#global_event_card.get_node("RewardsSprites").get_children()[j].set_animation(return_animation_name_from_letter(event_letter))
 	else:
 		print(reqsandrew["rewards"]["cards"].size())
 		print(reqsandrew["rewards"]["events"].size())
 		print('wutuheeeeell2') 
 
-func show_icons():
+func show_icons(): #STILL NEED EVENT PART
 	var reqsandrew = global_event_card.resource.RequisitesAndRewards
 
 	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
@@ -267,7 +275,9 @@ func show_icons():
 			print("node visible:" + str(global_event_card.get_node("RequisitesSprites").get_child(i)))
 			global_event_card.get_node("RequisitesSprites").get_child(i).visible = true
 		for j in reqsandrew["requisites"]["events"]:
-			pass
+			var card_letter = reqsandrew["rewards"]["cards"][j]
+			print("node visible:" + str(global_event_card.get_node("RewardsSprites").get_child(j)))
+			global_event_card.get_node("RewardsSprites").get_child(j).visible = true
 
 func return_animation_name_from_letter(card_letter) -> String:
 	match card_letter:
