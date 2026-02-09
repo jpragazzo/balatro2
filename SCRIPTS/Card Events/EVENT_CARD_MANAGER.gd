@@ -9,6 +9,9 @@ var current_score := 0
 @onready var control: Control = $"../Control"
 @onready var card_manager: Node2D = $"../CardManager"
 @onready var deck: Node2D = $"../Deck"
+@onready var player_hand: Node2D = $"../PlayerHand"
+
+
 const CARD = preload("res://scenes/Card.tscn")
 
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
@@ -261,10 +264,10 @@ func match_icon(): #STILL NEED EVENT PART
 		#for j in reqsandrew["rewards"]["events"].size():
 			#var event_letter = reqsandrew["rewards"]["events"][j]
 			#global_event_card.get_node("RewardsSprites").get_children()[j].set_animation(return_animation_name_from_letter(event_letter))
-	else:
-		print(reqsandrew["rewards"]["cards"].size())
-		print(reqsandrew["rewards"]["events"].size())
-		print('wutuheeeeell2') 
+	#else:
+		#print(reqsandrew["rewards"]["cards"].size())
+		#print(reqsandrew["rewards"]["events"].size())
+		#print('wutuheeeeell2') 
 
 func show_icons(): #STILL NEED EVENT PART
 	var reqsandrew = global_event_card.resource.RequisitesAndRewards
@@ -272,11 +275,9 @@ func show_icons(): #STILL NEED EVENT PART
 	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
 		for i in reqsandrew["requisites"]["cards"].size():
 			var card_letter = reqsandrew["requisites"]["cards"][i]
-			print("node visible:" + str(global_event_card.get_node("RequisitesSprites").get_child(i)))
 			global_event_card.get_node("RequisitesSprites").get_child(i).visible = true
 		for j in reqsandrew["requisites"]["events"]:
 			var card_letter = reqsandrew["rewards"]["cards"][j]
-			print("node visible:" + str(global_event_card.get_node("RewardsSprites").get_child(j)))
 			global_event_card.get_node("RewardsSprites").get_child(j).visible = true
 
 func return_animation_name_from_letter(card_letter) -> String:
@@ -347,11 +348,9 @@ func skip_event():
 	else:
 		match global_event_card.resource.skippable:
 			0:
-				print("freetoskip")
 				control.error_message("Event skipped!")
 				finish_event()
 			1:
-				print("badluck")
 				for i in global_event_card.resource.bad_luck_cards_if_skip:
 					deck.instantiate_card("bad_luck", deck.position)
 				control.error_message("Event skipped!")
@@ -383,8 +382,25 @@ func disable_skip():
 func enable_skip():
 	control.activate_skip_button()
 	
-func add_events_from_cards_in_hand():
-	event_deck.add_events_from_cards_in_hand()
+func add_events_from_cards_in_hand(): #triggered every time a card is added or removed from player hand
+	
+	var card_type_quantity_in_player_hand = {
+		0: 0, #WEAPON
+		1: 0, #ARMOR
+		2: 0, #CONSUMABLE
+		3: 0, #MONSTER
+		4: 0, #GENERIC
+		5: 0, #MONEY
+		6: 0  #BADLUCK
+	}
+	
+	for i in player_hand.player_hand:
+		card_type_quantity_in_player_hand[i.card_type] += 1
+	
+	if card_type_quantity_in_player_hand[6] >= 2 and event_deck.bad_luck_events_are_active == false: #bad luck
+		event_deck.add_badluck_events()
+	if card_type_quantity_in_player_hand[6] < 2 and event_deck.bad_luck_events_are_active == true: #bad luck
+		event_deck.remove_badluck_events()
 
 func animate_cards(array_of_cards_to_destroy, array_of_slots_to_free):
 	enable_doit()

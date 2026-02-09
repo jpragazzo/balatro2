@@ -22,7 +22,6 @@ func _ready() -> void:
 	self.get_node("Attack2").visible = false
 	self.get_node("Health2").visible = false
 	self.get_node("Shield").visible = false
-	print(card_sprite.modulate)
 	
 	match self.resource.card_type:
 		0: #weapon

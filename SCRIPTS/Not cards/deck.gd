@@ -47,7 +47,6 @@ func receive_card(card_type, slot_pos):
 	match card_type:
 		"g":
 			for i in CardDictionary.card_dictionary: #generic, so any card, etc
-				print("i: ", i)
 				var index := 0
 				for j in CardDictionary.card_dictionary[i]: #for every card in every array of the dictionary
 					card_dictionary.append(CardDictionary.card_dictionary[i][index])  #...add to our BIG long array
@@ -84,7 +83,6 @@ func get_random_card_from_set_card_type(card_type, card_dictionary, random_card,
 		random_card = card_dictionary[random_index] #get a random card of all the cards
 		instantiate_card(random_card, slot_pos)
 	
-
 func instantiate_card(card: String, slot_pos: Vector2):
 		var new_card = card_scene.instantiate()
 

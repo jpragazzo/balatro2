@@ -1,12 +1,15 @@
 extends Node2D
 
 var event_deck = ["give2cards", "receive2cards", "give1cards", "hunger", "blacksmith", "thebutcher", "thievery"]
+var bad_luck_events_are_active = false
 
 @onready var player_hand: Node2D = $"../PlayerHand"
 @onready var card_manager: Node2D = $"../CardManager"
 @onready var event_card_manager: Node2D = $"../EventCardManager"
 @onready var control: Control = $"../Control"
 	
+
+
 func draw_event_card():
 	
 	event_deck.shuffle()
@@ -27,10 +30,12 @@ func draw_event_card():
 	update_event_card_position(new_card, Vector2(self.position.x - 185, self.position.y))
 	update_event_card_scale(new_card, Vector2(1.7,1.7))
 	
-func add_events_from_cards_in_hand():
+func add_badluck_events():
 	var current_player_hand = player_hand.player_hand #IS AN ARRAY
-	
-	#ADD LOGIC
+	bad_luck_events_are_active = true
+func remove_badluck_events():
+	var current_player_hand = player_hand.player_hand #IS AN ARRAY
+	bad_luck_events_are_active = false
 
 func update_event_card_position(event_card, new_position):
 	var tween = get_tree().create_tween()

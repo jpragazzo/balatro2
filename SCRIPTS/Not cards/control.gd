@@ -31,12 +31,10 @@ func skip_button_pressed():
 	event_card_manager.skip_event()
 
 func activate_skip_button():
-	print("activate")
 	skip.get_node("SkipLabelArea/CollisionShape2D").disabled = false
 	var tween = get_tree().create_tween()
 	tween.tween_property(skip, "modulate", Color(1,1,1,1), 0.23)
 func deactivate_skip_button():
-	print("deactivate")
 	skip.get_node("SkipLabelArea/CollisionShape2D").disabled = true
 	var tween = get_tree().create_tween()
 	tween.tween_property(skip, "modulate", Color(1,1,1,0), 0.23)
@@ -50,7 +48,6 @@ func deactivate_doit_button():
 func _on_reset_game_pressed() -> void:
 	get_tree().reload_current_scene() 
 func _on_reset_high_score_button_pressed() -> void:
-	print("reset")
 	var file = FileAccess.open(save_file_path, FileAccess.WRITE) 
 	var highest_score = 0 
 	file.store_var(highest_score)
@@ -82,7 +79,6 @@ func save(highest_score):
 func error_message(text):
 	
 	errors.text = text
-	print("text")
 	
 	if doit_timer.time_left == 0:
 		errors.modulate = Color(1,1,1,0) # garante alpha 0
@@ -117,10 +113,5 @@ func _on_skip_label_area_mouse_exited() -> void:
 
 
 func _on_doit_timer_timeout() -> void:
-	print("timeout")
 	var tween2 = get_tree().create_tween()
 	tween2.tween_property(errors, "modulate", Color(1,1,1,0), 0.3)
-
-func _process(delta: float) -> void:
-	#print(doit_timer.time_left)
-	pass

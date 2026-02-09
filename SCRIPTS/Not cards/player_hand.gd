@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var event_card_manager: Node2D = $"../EventCardManager"
 
 var player_hand = []
 var center_screen_x 
@@ -11,10 +12,11 @@ func _ready() -> void:
 	center_screen_x = get_viewport().size.x / 2 
 	
 
-		
+
 func add_card_to_hand(card):
 	if card not in player_hand:
 		player_hand.insert(0, card)
+		event_card_manager.add_events_from_cards_in_hand()
 		update_hand_positions()
 	else:
 		animate_card_to_position(card, card.hand_original_pos)
@@ -22,6 +24,7 @@ func add_card_to_hand(card):
 func remove_card_from_hand(card):
 	if card in player_hand:
 		player_hand.erase(card)
+		event_card_manager.add_events_from_cards_in_hand()
 		update_hand_positions()
 
 func update_hand_positions():
