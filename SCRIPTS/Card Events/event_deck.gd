@@ -21,7 +21,7 @@ func draw_event_card():
 	
 	var event_card_drawn = file_name
 	
-	var event_card_scene = preload("res://scenes/event_card.tscn")
+	var event_card_scene = preload("res://SCENES/event_card.tscn")
 	var new_card = event_card_scene.instantiate() #CREATING EVENT CARD
 	new_card.position = self.position
 	new_card.resource = load("res://RESOURCES/events/"+event_card_drawn)

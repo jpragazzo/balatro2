@@ -12,7 +12,7 @@ var current_score := 0
 @onready var player_hand: Node2D = $"../PlayerHand"
 
 
-const CARD = preload("res://scenes/Card.tscn")
+const CARD = preload("res://SCENES/Card.tscn")
 
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
 	global_event_card = event_card
