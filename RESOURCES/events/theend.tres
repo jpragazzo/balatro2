@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EventCard" load_steps=2 format=3 uid="uid://cfvnillcxxvql"]
+
+[ext_resource type="Script" path="res://SCRIPTS/Card Resources Scripts/events/event_card_res.gd" id="1_nlvke"]
+
+[resource]
+script = ExtResource("1_nlvke")
+RequisitesAndRewards = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+name = "The End"
+description = "They've ended you brother. Give yourself in."
+tier = 0
+event_type = 1
+skippable = 2
+bad_luck_cards_if_skip = 0

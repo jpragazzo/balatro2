@@ -9,24 +9,22 @@ var bad_luck_events_are_active = false
 @onready var event_card_manager: Node2D = $"../EventCardManager"
 @onready var control: Control = $"../Control"
 
-
-
 func _ready():
-	for event in event_deck:
-		#ADD EVENT TYPE IN EVENT RESOURCES TO FILTER BADLUCK EVENTS
-		pass
-		
+	remove_badluck_events()
+
 func draw_event_card():
 	
 	event_deck.shuffle()
 	
-	var event_card_drawn = event_deck[0]
+	var resource_path = event_deck[0].resource_path
+	var file_name = resource_path.get_file()
 	
+	var event_card_drawn = file_name
 	
 	var event_card_scene = preload("res://scenes/event_card.tscn")
 	var new_card = event_card_scene.instantiate() #CREATING EVENT CARD
 	new_card.position = self.position
-	new_card.resource = load("res://RESOURCES/events/"+event_card_drawn+".tres")
+	new_card.resource = load("res://RESOURCES/events/"+event_card_drawn)
 	new_card.get_node("EventName").text = new_card.resource.name
 	new_card.get_node("EventDescription").text = new_card.resource.description
 	event_card_manager.start_event(new_card)
@@ -39,18 +37,19 @@ func draw_event_card():
 func activate_badluck_events():
 	var current_player_hand = player_hand.player_hand #IS AN ARRAY
 	bad_luck_events_are_active = true
-	#add_badluck_events()
+	add_badluck_events()
 
 func deactivate_badluck_events():
 	var current_player_hand = player_hand.player_hand #IS AN ARRAY
 	bad_luck_events_are_active = false
-	#remove_badluck_events()
+	remove_badluck_events()
 
-#LETS CHANGE THE EVENT_DECK LIST FIRST
-# func add_badluck_events():
-# 	pass
-# func remove_badluck_events():
-# 	pass
+func add_badluck_events():
+	event_deck = load_tres_resources_from_folder("res://RESOURCES/events/")
+func remove_badluck_events():
+	for event in event_deck:
+		if event.event_type == 1:
+			event_deck.erase(event)
 
 func load_tres_resources_from_folder(path: String) -> Array:
 	var resources: Array = []
@@ -69,7 +68,6 @@ func load_tres_resources_from_folder(path: String) -> Array:
 	else:
 		push_error("Could not open folder: " + path)
 	return resources
-
 
 func update_event_card_position(event_card, new_position):
 	var tween = get_tree().create_tween()

@@ -14,8 +14,9 @@ RequisitesAndRewards = {
 "events": []
 }
 }
-tier = 0
 name = "Blacksmith"
 description = "Give out a weapon, receive a piece of armor!"
+tier = 0
+event_type = 0
 skippable = 0
 bad_luck_cards_if_skip = 0
