@@ -1,15 +1,21 @@
 extends Node2D
 
-var event_deck = ["give2cards", "receive2cards", "give1cards", "hunger", "blacksmith", "thebutcher", "thievery"]
+# var event_deck = ["give2cards", "receive2cards", "give1cards", "hunger", "blacksmith", "thebutcher", "thievery"]
+var event_deck = load_tres_resources_from_folder("res://RESOURCES/events/")
 var bad_luck_events_are_active = false
 
 @onready var player_hand: Node2D = $"../PlayerHand"
 @onready var card_manager: Node2D = $"../CardManager"
 @onready var event_card_manager: Node2D = $"../EventCardManager"
 @onready var control: Control = $"../Control"
-	
 
 
+
+func _ready():
+	for event in event_deck:
+		#ADD EVENT TYPE IN EVENT RESOURCES TO FILTER BADLUCK EVENTS
+		pass
+		
 func draw_event_card():
 	
 	event_deck.shuffle()
@@ -30,12 +36,40 @@ func draw_event_card():
 	update_event_card_position(new_card, Vector2(self.position.x - 185, self.position.y))
 	update_event_card_scale(new_card, Vector2(1.7,1.7))
 	
-func add_badluck_events():
+func activate_badluck_events():
 	var current_player_hand = player_hand.player_hand #IS AN ARRAY
 	bad_luck_events_are_active = true
-func remove_badluck_events():
+	#add_badluck_events()
+
+func deactivate_badluck_events():
 	var current_player_hand = player_hand.player_hand #IS AN ARRAY
 	bad_luck_events_are_active = false
+	#remove_badluck_events()
+
+#LETS CHANGE THE EVENT_DECK LIST FIRST
+# func add_badluck_events():
+# 	pass
+# func remove_badluck_events():
+# 	pass
+
+func load_tres_resources_from_folder(path: String) -> Array:
+	var resources: Array = []
+	var dir := DirAccess.open(path)
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if not dir.current_is_dir() and file_name.ends_with(".tres"):
+				var res_path = path + "/" + file_name
+				var resource = load(res_path)
+				if resource:
+					resources.append(resource)
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	else:
+		push_error("Could not open folder: " + path)
+	return resources
+
 
 func update_event_card_position(event_card, new_position):
 	var tween = get_tree().create_tween()
