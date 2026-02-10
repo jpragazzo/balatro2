@@ -32,7 +32,7 @@ func draw_event_card(): #SMART CARD DRAWING EXPERIENCE: add
 	
 	card_manager.add_child(new_card)
 	
-	update_event_card_position(new_card, Vector2(get_viewport().size.x / 2, self.position.y - 200))
+	update_event_card_position(new_card, Vector2(get_viewport().get_visible_rect().size.x / 2, self.position.y - 200))
 	update_event_card_scale(new_card, Vector2(1.7,1.7))
 	
 func activate_badluck_events():
