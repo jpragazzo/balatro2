@@ -12,7 +12,7 @@ var current_score := 0
 @onready var player_hand: Node2D = $"../PlayerHand"
 
 
-const CARD = preload("res://SCENES/Card.tscn")
+const CARD = preload("res://scenes/Card.tscn")
 
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
 	global_event_card = event_card
@@ -347,14 +347,17 @@ func skip_event():
 		return -1
 	else:
 		match global_event_card.resource.skippable:
-			0:
+			0: #normal
 				control.error_message("Event skipped!")
 				finish_event()
-			1:
+			1: #badluck skipabble
 				for i in global_event_card.resource.bad_luck_cards_if_skip:
 					deck.instantiate_card("bad_luck", deck.position)
 				control.error_message("Event skipped!")
 				finish_event()
+			2: #you lose if skip
+				get_tree().reload_current_scene() 
+				return
 			_:
 				pass
 		disable_skip()
@@ -398,9 +401,9 @@ func add_events_from_cards_in_hand(): #triggered every time a card is added or r
 		card_type_quantity_in_player_hand[i.card_type] += 1
 	
 	if card_type_quantity_in_player_hand[6] >= 2 and event_deck.bad_luck_events_are_active == false: #bad luck
-		event_deck.add_badluck_events()
+		event_deck.activate_badluck_events()
 	if card_type_quantity_in_player_hand[6] < 2 and event_deck.bad_luck_events_are_active == true: #bad luck
-		event_deck.remove_badluck_events()
+		event_deck.deactivate_badluck_events()
 
 func animate_cards(array_of_cards_to_destroy, array_of_slots_to_free):
 	enable_doit()

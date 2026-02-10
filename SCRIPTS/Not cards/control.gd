@@ -33,11 +33,12 @@ func skip_button_pressed():
 func activate_skip_button():
 	skip.get_node("SkipLabelArea/CollisionShape2D").disabled = false
 	var tween = get_tree().create_tween()
-	tween.tween_property(skip, "modulate", Color(1,1,1,1), 0.23)
+	tween.set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(skip, "modulate", Color(1,1,1,1), 1.5)
 func deactivate_skip_button():
 	skip.get_node("SkipLabelArea/CollisionShape2D").disabled = true
 	var tween = get_tree().create_tween()
-	tween.tween_property(skip, "modulate", Color(1,1,1,0), 0.23)
+	tween.tween_property(skip, "modulate", Color(1,1,1,0), 0.5)
 	
 func activate_doit_button():
 	do_it.get_node("DoItLabelArea/CollisionShape2D").disabled = false
@@ -83,8 +84,8 @@ func error_message(text):
 	if doit_timer.time_left == 0:
 		errors.modulate = Color(1,1,1,0) # garante alpha 0
 
-		var tween = get_tree().create_tween()
-		tween.tween_property(errors, "modulate", Color(1,1,1,0.7), 0.23)
+		var tween2 = get_tree().create_tween()
+		tween2.tween_property(errors, "modulate", Color(1,1,1,0.7), 0.23)
 		
 	doit_timer.start()
 		

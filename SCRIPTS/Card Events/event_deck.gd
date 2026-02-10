@@ -1,18 +1,19 @@
 extends Node2D
 
-# var event_deck = ["give2cards", "receive2cards", "give1cards", "hunger", "blacksmith", "thebutcher", "thievery"]
-var event_deck = load_tres_resources_from_folder("res://RESOURCES/events/")
-var bad_luck_events_are_active = false
-
 @onready var player_hand: Node2D = $"../PlayerHand"
 @onready var card_manager: Node2D = $"../CardManager"
 @onready var event_card_manager: Node2D = $"../EventCardManager"
 @onready var control: Control = $"../Control"
 
+# var event_deck = ["give2cards", "receive2cards", "give1cards", "hunger", "blacksmith", "thebutcher", "thievery"]
+var event_deck = load_tres_resources_from_folder("res://RESOURCES/events/")
+var bad_luck_events_are_active = false
+
+
 func _ready():
 	remove_badluck_events()
 
-func draw_event_card():
+func draw_event_card(): #SMART CARD DRAWING EXPERIENCE: add
 	
 	event_deck.shuffle()
 	
@@ -21,7 +22,7 @@ func draw_event_card():
 	
 	var event_card_drawn = file_name
 	
-	var event_card_scene = preload("res://SCENES/event_card.tscn")
+	var event_card_scene = preload("res://scenes/event_card.tscn")
 	var new_card = event_card_scene.instantiate() #CREATING EVENT CARD
 	new_card.position = self.position
 	new_card.resource = load("res://RESOURCES/events/"+event_card_drawn)
@@ -31,17 +32,17 @@ func draw_event_card():
 	
 	card_manager.add_child(new_card)
 	
-	update_event_card_position(new_card, Vector2(self.position.x - 185, self.position.y))
+	update_event_card_position(new_card, Vector2(get_viewport().size.x / 2, self.position.y - 200))
 	update_event_card_scale(new_card, Vector2(1.7,1.7))
 	
 func activate_badluck_events():
-	var current_player_hand = player_hand.player_hand #IS AN ARRAY
 	bad_luck_events_are_active = true
+	%DebugLabel.text = str(bad_luck_events_are_active)
 	add_badluck_events()
 
 func deactivate_badluck_events():
-	var current_player_hand = player_hand.player_hand #IS AN ARRAY
 	bad_luck_events_are_active = false
+	%DebugLabel.text = str(bad_luck_events_are_active)
 	remove_badluck_events()
 
 func add_badluck_events():
@@ -71,7 +72,7 @@ func load_tres_resources_from_folder(path: String) -> Array:
 
 func update_event_card_position(event_card, new_position):
 	var tween = get_tree().create_tween()
-	tween.tween_property(event_card, "position", new_position, 0.2)
+	tween.tween_property(event_card, "position", new_position, 0.3)
 	
 	await tween.finished
 	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = false

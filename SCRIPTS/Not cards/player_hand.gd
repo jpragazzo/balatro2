@@ -16,7 +16,6 @@ func _ready() -> void:
 func add_card_to_hand(card):
 	if card not in player_hand:
 		player_hand.insert(0, card)
-		event_card_manager.add_events_from_cards_in_hand()
 		update_hand_positions()
 	else:
 		animate_card_to_position(card, card.hand_original_pos)
@@ -24,7 +23,6 @@ func add_card_to_hand(card):
 func remove_card_from_hand(card):
 	if card in player_hand:
 		player_hand.erase(card)
-		event_card_manager.add_events_from_cards_in_hand()
 		update_hand_positions()
 
 func update_hand_positions():

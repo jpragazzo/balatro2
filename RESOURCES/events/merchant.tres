@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EventCard" load_steps=2 format=3 uid="uid://4dn5fkreyunb"]
+
+[ext_resource type="Script" path="res://SCRIPTS/Card Resources Scripts/events/event_card_res.gd" id="1_p0npt"]
+
+[resource]
+script = ExtResource("1_p0npt")
+RequisitesAndRewards = {
+"requisites": {
+"cards": ["$"],
+"events": []
+},
+"rewards": {
+"cards": ["c"],
+"events": []
+}
+}
+name = "Merchant"
+description = "An honest man across the fields. He might have some food."
+tier = 0
+event_type = 0
+skippable = 0
+bad_luck_cards_if_skip = 0

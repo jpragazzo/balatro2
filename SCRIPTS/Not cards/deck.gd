@@ -4,7 +4,7 @@ var player_deck = ["skeleton", "chicken", "sword", "cap", "money"] #nomes dos pn
 
 @onready var player_hand: Node2D = $"../PlayerHand"
 @onready var card_manager: Node2D = $"../CardManager"
-var card_scene = preload("res://SCENES/Card.tscn")
+var card_scene = preload("res://scenes/Card.tscn")
 #signal send_card_sprite_and_res(name: String)
 
 # Called when the node enters the scene tree for the first time.
