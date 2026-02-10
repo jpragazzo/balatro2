@@ -15,7 +15,7 @@ func _ready():
 
 func draw_event_card(): #SMART CARD DRAWING EXPERIENCE: add
 	
-	event_deck.shuffle()
+	#event_deck.shuffle()
 	
 	var resource_path = event_deck[0].resource_path
 	var file_name = resource_path.get_file()
@@ -26,8 +26,8 @@ func draw_event_card(): #SMART CARD DRAWING EXPERIENCE: add
 	var new_card = event_card_scene.instantiate() #CREATING EVENT CARD
 	new_card.position = self.position
 	new_card.resource = load("res://RESOURCES/events/"+event_card_drawn)
-	new_card.get_node("EventName").text = new_card.resource.name
-	new_card.get_node("EventDescription").text = new_card.resource.description
+	new_card.get_node("Main/EventName").text = new_card.resource.name
+	new_card.get_node("Main/EventDescription").text = new_card.resource.description
 	event_card_manager.start_event(new_card)
 	
 	card_manager.add_child(new_card)

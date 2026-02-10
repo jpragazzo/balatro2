@@ -1,7 +1,29 @@
 extends Resource
 class_name EventCard
 
-@export var RequisitesAndRewards = {
+@export var RequisitesAndRewards1 = {
+	"requisites": {
+		"cards": [],
+		"events":[]
+	},
+	"rewards": {
+		"cards": [],
+		"events":[]
+	},
+}
+
+@export var RequisitesAndRewards2 = {
+	"requisites": {
+		"cards": [],
+		"events":[]
+	},
+	"rewards": {
+		"cards": [],
+		"events":[]
+	},
+}
+
+@export var RequisitesAndRewards3 = {
 	"requisites": {
 		"cards": [],
 		"events":[]

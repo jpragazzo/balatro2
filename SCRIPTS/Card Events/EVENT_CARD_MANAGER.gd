@@ -2,6 +2,7 @@ extends Node2D
 
 var event_active: bool
 var global_event_card 
+var global_event_options_number: int = 0
 var current_score := 0
 
 @onready var event_deck: Node2D = $"../EventDeck"
@@ -16,74 +17,114 @@ const CARD = preload("res://scenes/Card.tscn")
 
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
 	global_event_card = event_card
+	global_event_options_number = 0
 	#await event_req_card_check()
 	#event_requisites_write(event_card) #COMENTING BECAUSE WE HAVE ICONS NOW
 	lock_current_event()
 	enable_skip()
-	match_icon()
-	show_icons()
+	#match_icon()
+	#show_icons()
 #func end_event(event_card)
 
-func get_event_requisites_cards(event_card):
-	if event_card.resource.RequisitesAndRewards["requisites"]["cards"].size() != 0:
-		var event_requisites_cards_array: Array[String]
-		for i in event_card.resource.RequisitesAndRewards["requisites"]["cards"]:
-			event_requisites_cards_array.append("(" + i + ")")
-		return event_requisites_cards_array
-	else: 
-		return []
-func get_event_requisites_events(event_card):
-	if event_card.resource.RequisitesAndRewards["requisites"]["events"].size() != 0:
-		var event_requisites_events_array: Array[String]
-		for j in event_card.resource.RequisitesAndRewards["requisites"]["events"]:
-			event_requisites_events_array.append(" (" + j + ") ")
-		return event_requisites_events_array
-	else: 
-		return []
-func get_event_rewards_cards(event_card):
-	if event_card.resource.RequisitesAndRewards["rewards"]["cards"].size() != 0:
-		var event_rewards_cards_array: Array[String]
-		for i in event_card.resource.RequisitesAndRewards["rewards"]["cards"]:
-			event_rewards_cards_array.append(" (" + i + ") ")
-		return event_rewards_cards_array
-	else: 
-		return []
-func get_event_rewards_events(event_card):
-	if event_card.resource.RequisitesAndRewards["rewards"]["events"].size() != 0:
-		var event_rewards_events_array: Array[String]
-		for j in event_card.resource.RequisitesAndRewards["rewards"]["events"]:
-			event_rewards_events_array.append(" (" + j + ") ")
-		return event_rewards_events_array
-	else: 
-		return []
+func get_event_requisites_cards(): #returns an array of the 3 arrays containing the event requisites
+	
+	var event_requisites_cards_array1: Array[String]
+	var event_requisites_cards_array2: Array[String]
+	var event_requisites_cards_array3: Array[String]
+	
+	if global_event_card.resource.RequisitesAndRewards1["requisites"]["cards"].size() != 0:
+		global_event_options_number += 1
+		for i in global_event_card.resource.RequisitesAndRewards1["requisites"]["cards"]:
+			event_requisites_cards_array1.append(i)
+			print(i)
+	if global_event_card.resource.RequisitesAndRewards2["requisites"]["cards"].size() != 0:
+		global_event_options_number += 1
+		for i in global_event_card.resource.RequisitesAndRewards2["requisites"]["cards"]:
+			event_requisites_cards_array2.append(i)
+			print(i)
+	if global_event_card.resource.RequisitesAndRewards3["requisites"]["cards"].size() != 0:
+		global_event_options_number += 1
+		for i in global_event_card.resource.RequisitesAndRewards3["requisites"]["cards"]:
+			event_requisites_cards_array3.append(i)
+			print(i)
+			
+		
+	var big_array = [event_requisites_cards_array1, event_requisites_cards_array2, event_requisites_cards_array3]
+	print(big_array)
+	return big_array
 
-func event_requisites_write(event_card): #WRITE REQUISITES ON CARD
+#func get_event_requisites_events(global_event_card):
+	#if global_event_card.resource.RequisitesAndRewards["requisites"]["events"].size() != 0:
+		#var event_requisites_events_array: Array[String]
+		#for j in global_event_card.resource.RequisitesAndRewards["requisites"]["events"]:
+			#event_requisites_events_array.append(" (" + j + ") ")
+		#return event_requisites_events_array
+	#else: 
+		#return []
+func get_event_rewards_cards():
 	
-	var erc = get_event_requisites_cards(event_card)
-	var ere = get_event_requisites_events(event_card)  
-	var erc2 = get_event_rewards_cards(event_card)
-	var ere2 = get_event_rewards_events(event_card)  
+	var event_rewards_cards_array1: Array[String]
+	var event_rewards_cards_array2: Array[String]
+	var event_rewards_cards_array3: Array[String]
 	
-	for card in erc:
-		event_card.get_node("EventRequisites").text += card
-	for card in ere:
-		event_card.get_node("EventRequisites").text += card
-	for card in erc2:
-		event_card.get_node("EventRewards").text += card
-	for card in ere2:
-		event_card.get_node("EventRewards").text += card
-func event_rewards_write(event_card): #WRITE REWARDS ON CARD
-	var reqsandrew = event_card.resource.RequisitesAndRewards
+	if global_event_card.resource.RequisitesAndRewards1["rewards"]["cards"].size() != 0:
+		for i in global_event_card.resource.RequisitesAndRewards1["rewards"]["cards"]:
+			event_rewards_cards_array1.append(i)
+	if global_event_card.resource.RequisitesAndRewards2["rewards"]["cards"].size() != 0:
+		for i in global_event_card.resource.RequisitesAndRewards2["rewards"]["cards"]:
+			event_rewards_cards_array2.append(i)
+	if global_event_card.resource.RequisitesAndRewards3["rewards"]["cards"].size() != 0:
+		for i in global_event_card.resource.RequisitesAndRewards3["rewards"]["cards"]:
+			event_rewards_cards_array3.append(i)
+			
+	var big_array = [event_rewards_cards_array1, event_rewards_cards_array2, event_rewards_cards_array3]
+	return big_array
+
+func get_event_rewards_events():
+	var event_rewards_events_array1: Array[String]
+	var event_rewards_events_array2: Array[String]
+	var event_rewards_events_array3: Array[String]
 	
-	
-	
-	if reqsandrew["rewards"]["cards"].size() != 0 or reqsandrew["rewards"]["events"].size() != 0:
-		for i in reqsandrew["rewards"]["cards"]:
-			event_card.get_node("EventRewards").text += " (" + i + ") "
-		for j in reqsandrew["rewards"]["events"]:
-			event_card.get_node("EventRewards").text += " (" + j + ") "
-	else:
-		print('wutuheeeeell') 
+	if global_event_card.resource.RequisitesAndRewards1["rewards"]["events"].size() != 0:
+		for i in global_event_card.resource.RequisitesAndRewards1["rewards"]["events"]:
+			event_rewards_events_array1.append(i)
+	if global_event_card.resource.RequisitesAndRewards2["rewards"]["events"].size() != 0:
+		for i in global_event_card.resource.RequisitesAndRewards2["rewards"]["events"]:
+			event_rewards_events_array2.append(i)
+	if global_event_card.resource.RequisitesAndRewards3["rewards"]["events"].size() != 0:
+		for i in global_event_card.resource.RequisitesAndRewards3["rewards"]["events"]:
+			event_rewards_events_array3.append(i)
+			
+	var big_array = [event_rewards_events_array1, event_rewards_events_array2, event_rewards_events_array3]
+	return big_array
+
+#func event_requisites_write(event_card): #WRITE REQUISITES ON CARD
+	#
+	#var erc = get_event_requisites_cards(event_card)
+	#var ere = get_event_requisites_events(event_card)  
+	#var erc2 = get_event_rewards_cards(event_card)
+	#var ere2 = get_event_rewards_events(event_card)  
+	#
+	#for card in erc:
+		#event_card.get_node("EventRequisites").text += card
+	#for card in ere:
+		#event_card.get_node("EventRequisites").text += card
+	#for card in erc2:
+		#event_card.get_node("EventRewards").text += card
+	#for card in ere2:
+		#event_card.get_node("EventRewards").text += card
+#func event_rewards_write(event_card): #WRITE REWARDS ON CARD
+	#var reqsandrew = event_card.resource.RequisitesAndRewards
+	#
+	#
+	#
+	#if reqsandrew["rewards"]["cards"].size() != 0 or reqsandrew["rewards"]["events"].size() != 0:
+		#for i in reqsandrew["rewards"]["cards"]:
+			#event_card.get_node("EventRewards").text += " (" + i + ") "
+		#for j in reqsandrew["rewards"]["events"]:
+			#event_card.get_node("EventRewards").text += " (" + j + ") "
+	#else:
+		#print('wutuheeeeell') 
 
 func lock_current_event():
 	event_active = true #CANNOT HAVE MORE THAN ONE PER TURN
@@ -104,12 +145,14 @@ func event_req_card_check():
 	var array_of_cards_to_destroy: Array[Node2D] = []
 	var array_of_slots_to_free: Array[Node2D] = []
 	var slots_with_cards: Array[String] = []
-	var requisites: PackedStringArray = []
 	var slot_number := 1
+	
+	var requisites = get_event_requisites_cards()
 
 	# -----------------------------------------
 	# 0. Verifica se há evento ativo
 	# -----------------------------------------
+	
 	if global_event_card == null:
 		control.error_message("No event active at this moment!")
 		return -1
@@ -117,10 +160,9 @@ func event_req_card_check():
 	# -----------------------------------------
 	# 1. Coleta requisitos do evento
 	# -----------------------------------------
-	for req in get_event_requisites_cards(global_event_card):
-		requisites.append(req)
-
+	
 	if requisites.is_empty():
+		print("a")
 		event_rew_card_give()
 		return 0
 

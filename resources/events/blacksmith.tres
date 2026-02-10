@@ -4,13 +4,33 @@
 
 [resource]
 script = ExtResource("1_qofqe")
-RequisitesAndRewards = {
+RequisitesAndRewards1 = {
 "requisites": {
 "cards": ["w"],
 "events": []
 },
 "rewards": {
 "cards": ["a"],
+"events": []
+}
+}
+RequisitesAndRewards2 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+RequisitesAndRewards3 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
 "events": []
 }
 }
