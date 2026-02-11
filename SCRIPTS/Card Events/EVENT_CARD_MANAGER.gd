@@ -26,7 +26,7 @@ func start_event(event_card): #chamada no event_deck quando clica na area do dec
 	#event_requisites_write(event_card) #COMENTING BECAUSE WE HAVE ICONS NOW
 	lock_current_event()
 	enable_skip()
-	#match_icon()
+	match_icon()
 	#show_icons()
 #func end_event(event_card)
 
@@ -314,15 +314,16 @@ func match_icon(): #STILL NEED EVENT PART
 	var option_name := "center"
 	match global_event_option_cliked:
 		1:
-			option_name = "left"
+			option_name = "Left"
 			reqsandrew = global_event_card.resource.RequisitesAndRewards1
 		2:
-			option_name = "center"
+			option_name = "Center"
 			reqsandrew = global_event_card.resource.RequisitesAndRewards2
 		3:
-			option_name = "right"
+			option_name = "Right"
 			reqsandrew = global_event_card.resource.RequisitesAndRewards3
 			
+	
 	for u in global_event_card.get_node(option_name +"/RequisitesSprites").get_children().size():
 		global_event_card.get_node(option_name +"/RequisitesSprites").get_child(u).visible = true
 		global_event_card.get_node(option_name +"/RequisitesSprites").get_child(u).set_animation("empty")
