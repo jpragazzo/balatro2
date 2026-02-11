@@ -35,12 +35,6 @@ class_name EventCard
 }
 
 
-enum EventCardTier {
-	ONE,
-	TWO,
-	THREE
-}
-
 enum Skip {
 	FreeToSkip, #0
 	BadLuck,    #1
@@ -54,7 +48,7 @@ enum EventType {
 
 @export var name: String
 @export var description: String
-@export var tier: EventCardTier
+@export var options: int = 1
 @export var event_type: EventType
 @export var skippable: Skip
 @export var bad_luck_cards_if_skip: int

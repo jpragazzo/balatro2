@@ -4,7 +4,17 @@
 
 [resource]
 script = ExtResource("1_gtn04")
-RequisitesAndRewards = {
+RequisitesAndRewards1 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+RequisitesAndRewards2 = {
 "requisites": {
 "cards": [],
 "events": []
@@ -14,6 +24,19 @@ RequisitesAndRewards = {
 "events": []
 }
 }
-tier = 0
+RequisitesAndRewards3 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
 name = "Receive two!"
 description = "Hey! You've been gifted two random cards!"
+options = 2
+event_type = 0
+skippable = 0
+bad_luck_cards_if_skip = 0

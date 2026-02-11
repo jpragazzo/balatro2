@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://diuo6tplhlwfn"]
+[gd_scene load_steps=22 format=3 uid="uid://diuo6tplhlwfn"]
 
 [ext_resource type="PackedScene" uid="uid://ctjnk36stbbh5" path="res://SCENES/tabledark.tscn" id="1_xekhy"]
 [ext_resource type="Script" path="res://SCRIPTS/Card/CARD_MANAGER.gd" id="2_yo032"]
@@ -16,12 +16,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83eum"]
 size = Vector2(1386, 271)
-
-[sub_resource type="LabelSettings" id="LabelSettings_7veck"]
-font_size = 32
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_85s3g"]
-size = Vector2(204, 270)
 
 [sub_resource type="LabelSettings" id="LabelSettings_h0vud"]
 font_size = 32
@@ -106,27 +100,9 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("13_q3rhg")
 
-[node name="DoIt" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 913.0
-offset_top = 318.0
-offset_right = 1003.0
-offset_bottom = 363.0
-pivot_offset = Vector2(45, 23)
-label_settings = SubResource("LabelSettings_7veck")
-
-[node name="DoitTimer" type="Timer" parent="Control/DoIt"]
+[node name="Timer" type="Timer" parent="Control"]
 wait_time = 3.0
 one_shot = true
-
-[node name="DoItLabelArea" type="Area2D" parent="Control/DoIt"]
-position = Vector2(-909, -344)
-collision_layer = 32
-collision_mask = 32
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Control/DoIt/DoItLabelArea"]
-position = Vector2(954, 367)
-shape = SubResource("RectangleShape2D_85s3g")
 
 [node name="Skip" type="Label" parent="Control"]
 layout_mode = 0
@@ -219,9 +195,7 @@ offset_right = 997.0
 offset_bottom = 37.0
 text = "debug label"
 
-[connection signal="timeout" from="Control/DoIt/DoitTimer" to="Control" method="_on_doit_timer_timeout"]
-[connection signal="mouse_entered" from="Control/DoIt/DoItLabelArea" to="Control" method="_on_label_mouse_entered"]
-[connection signal="mouse_exited" from="Control/DoIt/DoItLabelArea" to="Control" method="_on_label_mouse_exited"]
+[connection signal="timeout" from="Control/Timer" to="Control" method="_on_timer_timeout"]
 [connection signal="mouse_entered" from="Control/Skip/SkipLabelArea" to="Control" method="_on_skip_label_area_mouse_entered"]
 [connection signal="mouse_exited" from="Control/Skip/SkipLabelArea" to="Control" method="_on_skip_label_area_mouse_exited"]
 [connection signal="pressed" from="Control/ResetHighScore" to="Control" method="_on_reset_high_score_button_pressed"]

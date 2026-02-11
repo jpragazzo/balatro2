@@ -3,6 +3,8 @@ extends Node2D
 var event_active: bool
 var global_event_card 
 var global_event_options_number: int = 0
+var global_event_option_cliked: int = 0
+var is_event_open: int = 0 #0 or 1
 var current_score := 0
 
 @onready var event_deck: Node2D = $"../EventDeck"
@@ -16,6 +18,7 @@ var current_score := 0
 const CARD = preload("res://scenes/Card.tscn")
 
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
+	#control.deactivate_options_area()
 	global_event_card = event_card
 	global_event_options_number = 0
 	#await event_req_card_check()
@@ -147,13 +150,17 @@ func event_req_card_check():
 	var slots_with_cards: Array[String] = []
 	var slot_number := 1
 	
-	var requisites = get_event_requisites_cards()
+	var requisites
+	
+	
 
 	# -----------------------------------------
 	# 0. Verifica se há evento ativo
 	# -----------------------------------------
 	
-	if global_event_card == null:
+	if global_event_card != null:
+		requisites = get_event_requisites_cards()
+	else:
 		control.error_message("No event active at this moment!")
 		return -1
 
@@ -161,8 +168,7 @@ func event_req_card_check():
 	# 1. Coleta requisitos do evento
 	# -----------------------------------------
 	
-	if requisites.is_empty():
-		print("a")
+	if requisites[global_event_option_cliked].is_empty(): #if there are NO options with requisites
 		event_rew_card_give()
 		return 0
 
@@ -178,7 +184,7 @@ func event_req_card_check():
 
 		slot_number += 1
 
-	if slots_with_cards.size() < requisites.size():
+	if slots_with_cards.size() < requisites[global_event_option_cliked].size():
 		control.error_message("Not enough cards!")
 		return 0
 
@@ -214,7 +220,7 @@ func event_req_card_check():
 		Card.CardType.BADLUCK: 0
 	}
 
-	for req in requisites:
+	for req in requisites[global_event_option_cliked]:
 		var type = letter_to_type(req, null)
 		if type == null:
 			control.error_message("Invalid requisite: " + str(req))
@@ -284,25 +290,36 @@ func letter_to_type(letter, _unused):
 	return null
 	
 func match_icon(): #STILL NEED EVENT PART
-	var reqsandrew = global_event_card.resource.RequisitesAndRewards
-	
-	for u in global_event_card.get_node("RequisitesSprites").get_children().size():
-		global_event_card.get_node("RequisitesSprites").get_child(u).visible = true
-		global_event_card.get_node("RequisitesSprites").get_child(u).set_animation("empty")
-		global_event_card.get_node("RewardsSprites").get_child(u).visible = true
-		global_event_card.get_node("RewardsSprites").get_child(u).set_animation("empty")
+	var reqsandrew
+	var option_name := "center"
+	match global_event_option_cliked:
+		1:
+			option_name = "left"
+			reqsandrew = global_event_card.resource.RequisitesAndRewards1
+		2:
+			option_name = "center"
+			reqsandrew = global_event_card.resource.RequisitesAndRewards2
+		3:
+			option_name = "right"
+			reqsandrew = global_event_card.resource.RequisitesAndRewards3
+			
+	for u in global_event_card.get_node(option_name +"/RequisitesSprites").get_children().size():
+		global_event_card.get_node(option_name +"/RequisitesSprites").get_child(u).visible = true
+		global_event_card.get_node(option_name +"/RequisitesSprites").get_child(u).set_animation("empty")
+		global_event_card.get_node(option_name +"/RewardsSprites").get_child(u).visible = true
+		global_event_card.get_node(option_name +"/RewardsSprites").get_child(u).set_animation("empty")
 	
 	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
 		for k in reqsandrew["requisites"]["cards"].size():
 			var card_letter = reqsandrew["requisites"]["cards"][k]
-			global_event_card.get_node("RequisitesSprites").get_children()[k].set_animation(return_animation_name_from_letter(card_letter))
+			global_event_card.get_node(option_name +"/RequisitesSprites").get_children()[k].set_animation(return_animation_name_from_letter(card_letter))
 		#for j in reqsandrew["requisites"]["events"].size():
 			#var event_letter = reqsandrew["requisites"]["events"][j]
 			#global_event_card.get_node("RequisitesSprites").get_children()[j].set_animation(return_animation_name_from_letter(event_letter))
 	if reqsandrew["rewards"]["cards"].size() != 0 or reqsandrew["rewards"]["events"].size() != 0:
 		for j in reqsandrew["rewards"]["cards"].size():
 			var card_letter = reqsandrew["rewards"]["cards"][j]
-			global_event_card.get_node("RewardsSprites").get_children()[j].set_animation(return_animation_name_from_letter(card_letter))
+			global_event_card.get_node(option_name +"/RewardsSprites").get_children()[j].set_animation(return_animation_name_from_letter(card_letter))
 		#for j in reqsandrew["rewards"]["events"].size():
 			#var event_letter = reqsandrew["rewards"]["events"][j]
 			#global_event_card.get_node("RewardsSprites").get_children()[j].set_animation(return_animation_name_from_letter(event_letter))

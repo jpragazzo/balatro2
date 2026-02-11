@@ -54,8 +54,14 @@ func raycast_at_cursor():
 			
 		elif layer == COLLISION_MASK_CONTROL:
 			match collider.name:
-				"DoItLabelArea": 
-					control.do_it_button_pressed()
+				"Option1Area": 
+					control.option_area_clicked(1)
+				"Option2Area":
+					control.option_area_clicked(2)
+				"Option3Area":
+					control.option_area_clicked(3)
+				"MainArea":
+					control.open_event_options()
 				"SkipLabelArea":
 					control.skip_button_pressed()
 				_: 

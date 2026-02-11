@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_xh2aj")
-RequisitesAndRewards = {
+RequisitesAndRewards1 = {
 "requisites": {
-"cards": ["c", "$", "$"],
+"cards": [],
 "events": []
 },
 "rewards": {
@@ -14,8 +14,29 @@ RequisitesAndRewards = {
 "events": []
 }
 }
-tier = 0
+RequisitesAndRewards2 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+RequisitesAndRewards3 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
 name = "Thievery"
 description = "This isn't your day. They took it all."
+options = 1
+event_type = 0
 skippable = 1
 bad_luck_cards_if_skip = 3

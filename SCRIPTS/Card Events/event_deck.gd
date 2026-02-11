@@ -22,7 +22,7 @@ func draw_event_card(): #SMART CARD DRAWING EXPERIENCE: add
 	
 	var event_card_drawn = file_name
 	
-	var event_card_scene = preload("res://scenes/event_card.tscn")
+	var event_card_scene = preload("res://SCENES/event_card.tscn")
 	var new_card = event_card_scene.instantiate() #CREATING EVENT CARD
 	new_card.position = self.position
 	new_card.resource = load("res://RESOURCES/events/"+event_card_drawn)
@@ -30,7 +30,7 @@ func draw_event_card(): #SMART CARD DRAWING EXPERIENCE: add
 	new_card.get_node("Main/EventDescription").text = new_card.resource.description
 	event_card_manager.start_event(new_card)
 	
-	card_manager.add_child(new_card)
+	event_card_manager.add_child(new_card)
 	
 	update_event_card_position(new_card, Vector2(get_viewport().get_visible_rect().size.x / 2, self.position.y - 200))
 	update_event_card_scale(new_card, Vector2(1.7,1.7))
@@ -75,7 +75,7 @@ func update_event_card_position(event_card, new_position):
 	tween.tween_property(event_card, "position", new_position, 0.3)
 	
 	await tween.finished
-	control.get_node("DoIt/DoItLabelArea/CollisionShape2D").disabled = false
+	control.deactivate_options_area()
 
 func update_event_card_scale(event_card, new_scale):
 
