@@ -34,9 +34,13 @@ RequisitesAndRewards3 = {
 "events": []
 }
 }
+options = {
+1: [],
+2: [],
+3: []
+}
 name = "Blacksmith"
 description = "Give out a weapon, receive a piece of armor!"
-options = 1
 event_type = 0
 skippable = 0
 bad_luck_cards_if_skip = 0

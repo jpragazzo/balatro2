@@ -20,7 +20,8 @@ const CARD = preload("res://scenes/Card.tscn")
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
 	global_event_card = event_card
 	#control.deactivate_options_area()
-	global_event_options_number = 0
+	global_event_options_number = global_event_card.resource.options.number_of_options.size()
+	match_options_descriptions()
 	#await event_req_card_check()
 	#event_requisites_write(event_card) #COMENTING BECAUSE WE HAVE ICONS NOW
 	lock_current_event()
@@ -153,7 +154,6 @@ func event_req_card_check():
 	var requisites
 	
 	
-
 	# -----------------------------------------
 	# 0. Verifica se há evento ativo
 	# -----------------------------------------
@@ -289,6 +289,26 @@ func letter_to_type(letter, _unused):
 	push_warning("Requisite inválido: " + str(letter))
 	return null
 	
+func match_options_descriptions():
+	var left_label = global_event_card.get_node("Left/EventChoise1")
+	var center_label = global_event_card.get_node("Center/EventChoise2")
+	var right_label = global_event_card.get_node("Right/EventChoise3")
+	
+	match global_event_options_number:
+		1:
+			left_label.text = ""
+			center_label.text = global_event_card.resource.options.number_of_options[0]
+			right_label.text = ""
+		2:
+			left_label.text = global_event_card.resource.options.number_of_options[0]
+			center_label.text = ""
+			right_label.text = global_event_card.resource.options.number_of_options[1]
+		3:
+			left_label.text = global_event_card.resource.options.number_of_options[0]
+			center_label.text = global_event_card.resource.options.number_of_options[1]
+			right_label.text = global_event_card.resource.options.number_of_options[2]
+	
+
 func match_icon(): #STILL NEED EVENT PART
 	var reqsandrew
 	var option_name := "center"
@@ -327,7 +347,6 @@ func match_icon(): #STILL NEED EVENT PART
 		#print(reqsandrew["rewards"]["cards"].size())
 		#print(reqsandrew["rewards"]["events"].size())
 		#print('wutuheeeeell2') 
-
 func show_icons(): #STILL NEED EVENT PART
 	var reqsandrew = global_event_card.resource.RequisitesAndRewards
 
@@ -435,7 +454,7 @@ func erase_global_event_and_block_buttons():
 	var tween = get_tree().create_tween()
 	tween.tween_property(global_event_card, "scale", Vector2(0.0,0.0), 1.5).set_trans(Tween.TRANS_ELASTIC)
 	
-	disable_doit()
+	control.deactivate_options_area()
 	disable_skip()
 	
 	await tween.finished
@@ -443,12 +462,12 @@ func erase_global_event_and_block_buttons():
 	
 	unlock_current_event()
 	
-	enable_doit()
 
-func disable_doit():
-	control.deactivate_doit_button()
-func enable_doit():
-	control.activate_doit_button()
+
+#func disable_doit():
+	#control.deactivate_doit_button()
+#func enable_doit():
+	#control.activate_doit_button()
 func disable_skip():
 	control.deactivate_skip_button()
 func enable_skip():
@@ -475,7 +494,6 @@ func add_events_from_cards_in_hand(): #triggered every time a card is added or r
 		event_deck.deactivate_badluck_events()
 
 func animate_cards(array_of_cards_to_destroy, array_of_slots_to_free):
-	enable_doit()
 	for card in array_of_cards_to_destroy:
 		var tween = get_tree().create_tween()
 		tween.tween_property(card, "scale", Vector2(0.0,0.0), 1.5).set_trans(Tween.TRANS_ELASTIC)

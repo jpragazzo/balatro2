@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_g3d7o")
-RequisitesAndRewards = {
+RequisitesAndRewards1 = {
 "requisites": {
-"cards": ["g", "g"],
+"cards": [],
 "events": []
 },
 "rewards": {
@@ -14,8 +14,31 @@ RequisitesAndRewards = {
 "events": []
 }
 }
-tier = 0
+RequisitesAndRewards2 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+RequisitesAndRewards3 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+options = {
+"number_of_options": ["Sadly give two cards.", "Happily give two cards!"]
+}
 name = "Give two!"
 description = "Now, you must give two cards!"
+event_type = 0
 skippable = 1
 bad_luck_cards_if_skip = 1

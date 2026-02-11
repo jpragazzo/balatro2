@@ -4,16 +4,41 @@
 
 [resource]
 script = ExtResource("1_jkae6")
-RequisitesAndRewards = {
+RequisitesAndRewards1 = {
 "requisites": {
-"cards": ["m", "a"],
+"cards": [],
 "events": []
 },
 "rewards": {
-"cards": ["c", "c"],
+"cards": [],
 "events": []
 }
 }
-tier = 0
+RequisitesAndRewards2 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+RequisitesAndRewards3 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+options = {
+"number_of_options": []
+}
 name = "The Butcher"
 description = "A noble butcher demands money for his work.  "
+event_type = 0
+skippable = 0
+bad_luck_cards_if_skip = 0

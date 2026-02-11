@@ -75,7 +75,7 @@ func update_event_card_position(event_card, new_position):
 	tween.tween_property(event_card, "position", new_position, 0.3)
 	
 	await tween.finished
-	control.deactivate_options_area()
+	control.activate_main_area()
 
 func update_event_card_scale(event_card, new_scale):
 

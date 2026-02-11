@@ -34,6 +34,9 @@ class_name EventCard
 	},
 }
 
+@export var options = {
+	"number_of_options": []
+}
 
 enum Skip {
 	FreeToSkip, #0
@@ -48,7 +51,6 @@ enum EventType {
 
 @export var name: String
 @export var description: String
-@export var options: int = 1
 @export var event_type: EventType
 @export var skippable: Skip
 @export var bad_luck_cards_if_skip: int

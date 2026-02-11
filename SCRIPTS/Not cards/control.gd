@@ -120,28 +120,34 @@ func _on_option_area_area_exited(area: Area2D) -> void:
 	tween2.tween_property(area.get_parent(), "scale", Vector2(1, 1), 1)
 
 func activate_options_area() -> void:
-	event_card_manager.get_children()[0].get_node("Left").get_node("Option1").get_children()[0].get_children()[0].disabled = false
-	event_card_manager.get_children()[0].get_node("Center").get_node("Option2").get_children()[0].get_children()[0].disabled = false
-	event_card_manager.get_children()[0].get_node("Right").get_node("Option3").get_children()[0].get_children()[0].disabled = false
-#func deactivate_options_area() -> void:
-	#event_card_manager.global_event_card.get_node("Left/Option1Area/CollisionShape2D").disabled = true
-	#event_card_manager.get_children()[0].get_node("Center/Option2Area/CollisionShape2D").disabled = true
-	#event_card_manager.get_children()[0].get_node("Right/Option3Area/CollisionShape2D").disabled = true
+	event_card_manager.get_children()[0].get_node("Left/Option1/Option1Area/CollisionShape2D").disabled = false
+	event_card_manager.get_children()[0].get_node("Center/Option2/Option2Area/CollisionShape2D").disabled = false
+	event_card_manager.get_children()[0].get_node("Right/Option3/Option3Area/CollisionShape2D").disabled = false
+func deactivate_options_area() -> void:
+	event_card_manager.get_children()[0].get_node("Left/Option1/Option1Area/CollisionShape2D").disabled = true
+	event_card_manager.get_children()[0].get_node("Center/Option2/Option2Area/CollisionShape2D").disabled = true
+	event_card_manager.get_children()[0].get_node("Right/Option3/Option3Area/CollisionShape2D").disabled = true
 
+func activate_main_area() -> void:
+	event_card_manager.get_children()[0].get_node("Main/MainArea/CollisionShape2D").disabled = false
+func deactivate_main_area() -> void:
+	event_card_manager.get_children()[0].get_node("Main/MainArea/CollisionShape2D").disabled = true
+	
 func option_area_clicked(option_number):
 	event_card_manager.global_event_option_cliked = option_number
 	await event_card_manager.event_req_card_check() #will get the global event option clicked updated
 	
 func open_and_activate_options():
-	if !event_card_manager.is_event_open:
-		var left = event_card_manager.global_event_card.get_node("Left")
-		var center = event_card_manager.global_event_card.get_node("Center")
-		var right = event_card_manager.global_event_card.get_node("Right")
-
+	var main = event_card_manager.global_event_card.get_node("Main")
+	var left = event_card_manager.global_event_card.get_node("Left")
+	var center = event_card_manager.global_event_card.get_node("Center")
+	var right = event_card_manager.global_event_card.get_node("Right")
+	
+	if !event_card_manager.is_event_open: #OPEN EVENT
 		var tween3 = get_tree().create_tween()
 		tween3.tween_property(left, "position", Vector2(left.position.x - 130, left.position.y), 0.3)
 		var tween4 = get_tree().create_tween()
-		tween4.tween_property(center, "position", Vector2(center.position.x, center.position.y), 0.3)
+		tween4.tween_property(main, "position", Vector2(center.position.x, center.position.y-170), 0.3)
 		var tween5 = get_tree().create_tween()
 		tween5.tween_property(right, "position", Vector2(right.position.x + 130, right.position.y), 0.3)
 		
@@ -149,4 +155,18 @@ func open_and_activate_options():
 		activate_options_area()
 		
 		event_card_manager.is_event_open = 1
+		
+	else: #CLOSE EVENT
+		deactivate_options_area()
+		var tween3 = get_tree().create_tween()
+		tween3.tween_property(left, "position", Vector2(left.position.x + 130, left.position.y), 0.3)
+		var tween4 = get_tree().create_tween()
+		tween4.tween_property(main, "position", Vector2(center.position.x, center.position.y), 0.3)
+		var tween5 = get_tree().create_tween()
+		tween5.tween_property(right, "position", Vector2(right.position.x - 130, right.position.y), 0.3)
+		
+		await tween5.finished
+		
+		event_card_manager.is_event_open = 0
+		
 	

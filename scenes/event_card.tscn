@@ -184,7 +184,6 @@ z_index = 1
 script = ExtResource("1_2sl4a")
 
 [node name="Main" type="Node2D" parent="."]
-visible = false
 z_index = 2
 
 [node name="EventCard" type="Sprite2D" parent="Main"]
@@ -365,7 +364,7 @@ position = Vector2(-1, 0)
 scale = Vector2(3, 3)
 texture = ExtResource("1_333o4")
 
-[node name="EventChoise1" type="Label" parent="Center"]
+[node name="EventChoise2" type="Label" parent="Center"]
 modulate = Color(0.133333, 0.133333, 0.133333, 1)
 offset_left = -54.0
 offset_top = -72.0
@@ -484,7 +483,7 @@ position = Vector2(-1, 0)
 scale = Vector2(3, 3)
 texture = ExtResource("1_333o4")
 
-[node name="EventChoise1" type="Label" parent="Right"]
+[node name="EventChoise3" type="Label" parent="Right"]
 modulate = Color(0.133333, 0.133333, 0.133333, 1)
 offset_left = -54.0
 offset_top = -72.0

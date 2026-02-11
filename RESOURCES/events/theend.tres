@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_nlvke")
-RequisitesAndRewards = {
+RequisitesAndRewards1 = {
 "requisites": {
 "cards": [],
 "events": []
@@ -14,9 +14,31 @@ RequisitesAndRewards = {
 "events": []
 }
 }
+RequisitesAndRewards2 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+RequisitesAndRewards3 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+options = {
+"number_of_options": ["Sadly give two cards.", "Happily give two cards."]
+}
 name = "The End"
 description = "They've ended you brother. Give yourself in."
-tier = 0
 event_type = 1
 skippable = 2
 bad_luck_cards_if_skip = 0
