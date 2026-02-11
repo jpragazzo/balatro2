@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://5cajnlheimin"]
+[gd_scene load_steps=27 format=3 uid="uid://5cajnlheimin"]
 
 [ext_resource type="Script" path="res://SCRIPTS/Card Events/EventCard.gd" id="1_2sl4a"]
 [ext_resource type="Texture2D" uid="uid://bwvkp7r3pv80q" path="res://ASSETS/Card pngs/event_card.png" id="1_333o4"]
@@ -170,8 +170,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_foyfq"]
-size = Vector2(204, 270)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c7kas"]
+size = Vector2(120, 156)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t0fle"]
+size = Vector2(120, 156)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yt0q1"]
+size = Vector2(120, 156)
 
 [node name="EventCard" type="Node2D"]
 z_index = 1
@@ -345,13 +351,11 @@ animation = &"monster"
 [node name="Option1" type="Node2D" parent="Left"]
 
 [node name="Option1Area" type="Area2D" parent="Left/Option1"]
-position = Vector2(4, -26)
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D1" type="CollisionShape2D" parent="Left/Option1/Option1Area"]
-position = Vector2(954, 367)
-shape = SubResource("RectangleShape2D_foyfq")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left/Option1/Option1Area"]
+shape = SubResource("RectangleShape2D_c7kas")
 
 [node name="Center" type="Node2D" parent="."]
 z_index = 1
@@ -466,13 +470,11 @@ animation = &"monster"
 [node name="Option2" type="Node2D" parent="Center"]
 
 [node name="Option2Area" type="Area2D" parent="Center/Option2"]
-position = Vector2(4, -26)
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Center/Option2/Option2Area"]
-position = Vector2(954, 367)
-shape = SubResource("RectangleShape2D_foyfq")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Center/Option2/Option2Area"]
+shape = SubResource("RectangleShape2D_t0fle")
 
 [node name="Right" type="Node2D" parent="."]
 z_index = 1
@@ -587,10 +589,8 @@ animation = &"monster"
 [node name="Option3" type="Node2D" parent="Right"]
 
 [node name="Option3Area" type="Area2D" parent="Right/Option3"]
-position = Vector2(4, -26)
 collision_layer = 32
 collision_mask = 0
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Right/Option3/Option3Area"]
-position = Vector2(954, 367)
-shape = SubResource("RectangleShape2D_foyfq")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right/Option3/Option3Area"]
+shape = SubResource("RectangleShape2D_yt0q1")

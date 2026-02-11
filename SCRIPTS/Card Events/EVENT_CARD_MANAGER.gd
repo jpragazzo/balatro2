@@ -18,8 +18,8 @@ var current_score := 0
 const CARD = preload("res://scenes/Card.tscn")
 
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
-	#control.deactivate_options_area()
 	global_event_card = event_card
+	#control.deactivate_options_area()
 	global_event_options_number = 0
 	#await event_req_card_check()
 	#event_requisites_write(event_card) #COMENTING BECAUSE WE HAVE ICONS NOW
@@ -157,7 +157,7 @@ func event_req_card_check():
 	# -----------------------------------------
 	# 0. Verifica se há evento ativo
 	# -----------------------------------------
-	
+	print(global_event_option_cliked)
 	if global_event_card != null:
 		requisites = get_event_requisites_cards()
 	else:
@@ -168,7 +168,7 @@ func event_req_card_check():
 	# 1. Coleta requisitos do evento
 	# -----------------------------------------
 	
-	if requisites[global_event_option_cliked].is_empty(): #if there are NO options with requisites
+	if requisites[(global_event_option_cliked - 1)].is_empty(): #if there are NO options with requisites
 		event_rew_card_give()
 		return 0
 
@@ -360,10 +360,20 @@ func return_animation_name_from_letter(card_letter) -> String:
 
 
 func event_rew_card_give() -> void:
+	var reqandrew
 	var rewards: PackedStringArray = []
 	
+	
+	match global_event_option_cliked:
+		1:
+			reqandrew = global_event_card.resource.RequisitesAndRewards1["rewards"]["cards"]
+		2:
+			reqandrew = global_event_card.resource.RequisitesAndRewards2["rewards"]["cards"]
+		3:
+			reqandrew = global_event_card.resource.RequisitesAndRewards3["rewards"]["cards"]
+			
 	# 1. Coletar todas as cartas recompensa
-	for card_name in global_event_card.resource.RequisitesAndRewards["rewards"]["cards"]:
+	for card_name in reqandrew:
 		rewards.append(card_name) #QUANTAS CARTAS PRECISA-SE ENTREGAR
 
 	if rewards.is_empty():

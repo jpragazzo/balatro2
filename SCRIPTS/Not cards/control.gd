@@ -123,16 +123,16 @@ func activate_options_area() -> void:
 	event_card_manager.get_children()[0].get_node("Left").get_node("Option1").get_children()[0].get_children()[0].disabled = false
 	event_card_manager.get_children()[0].get_node("Center").get_node("Option2").get_children()[0].get_children()[0].disabled = false
 	event_card_manager.get_children()[0].get_node("Right").get_node("Option3").get_children()[0].get_children()[0].disabled = false
-func deactivate_options_area() -> void:
-	event_card_manager.get_children()[0].get_node("Left").get_node("Option1").get_children()[0].get_children()[0].disabled = true
-	event_card_manager.get_children()[0].get_node("Center").get_node("Option2").get_children()[0].get_children()[0].disabled = true
-	event_card_manager.get_children()[0].get_node("Right").get_node("Option3").get_children()[0].get_children()[0].disabled = true
+#func deactivate_options_area() -> void:
+	#event_card_manager.global_event_card.get_node("Left/Option1Area/CollisionShape2D").disabled = true
+	#event_card_manager.get_children()[0].get_node("Center/Option2Area/CollisionShape2D").disabled = true
+	#event_card_manager.get_children()[0].get_node("Right/Option3Area/CollisionShape2D").disabled = true
 
 func option_area_clicked(option_number):
 	event_card_manager.global_event_option_cliked = option_number
 	await event_card_manager.event_req_card_check() #will get the global event option clicked updated
 	
-func open_event_options():
+func open_and_activate_options():
 	if !event_card_manager.is_event_open:
 		var left = event_card_manager.global_event_card.get_node("Left")
 		var center = event_card_manager.global_event_card.get_node("Center")
@@ -144,6 +144,9 @@ func open_event_options():
 		tween4.tween_property(center, "position", Vector2(center.position.x, center.position.y), 0.3)
 		var tween5 = get_tree().create_tween()
 		tween5.tween_property(right, "position", Vector2(right.position.x + 130, right.position.y), 0.3)
+		
+		await tween5.finished
+		activate_options_area()
 		
 		event_card_manager.is_event_open = 1
 	

@@ -61,7 +61,7 @@ func raycast_at_cursor():
 				"Option3Area":
 					control.option_area_clicked(3)
 				"MainArea":
-					control.open_event_options()
+					control.open_and_activate_options()
 				"SkipLabelArea":
 					control.skip_button_pressed()
 				_: 
