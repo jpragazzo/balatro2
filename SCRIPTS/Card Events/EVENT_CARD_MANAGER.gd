@@ -290,74 +290,102 @@ func letter_to_type(letter, _unused):
 	return null
 	
 func match_options_descriptions():
-	var left_label = global_event_card.get_node("Left/EventChoise1")
-	var center_label = global_event_card.get_node("Center/EventChoise2")
-	var right_label = global_event_card.get_node("Right/EventChoise3")
+	var left_sprite = global_event_card.get_node("Left/EventChoise1")
+	var center_sprite = global_event_card.get_node("Center/EventChoise2")
+	var right_sprite = global_event_card.get_node("Right/EventChoise3")
 	
 	match global_event_options_number:
 		1:
-			left_label.text = ""
-			center_label.text = global_event_card.resource.options.number_of_options[0]
-			right_label.text = ""
+			left_sprite.text = ""
+			center_sprite.text = global_event_card.resource.options.number_of_options[0]
+			right_sprite.text = ""
 		2:
-			left_label.text = global_event_card.resource.options.number_of_options[0]
-			center_label.text = ""
-			right_label.text = global_event_card.resource.options.number_of_options[1]
+			left_sprite.text = global_event_card.resource.options.number_of_options[0]
+			center_sprite.text = ""
+			right_sprite.text = global_event_card.resource.options.number_of_options[1]
 		3:
-			left_label.text = global_event_card.resource.options.number_of_options[0]
-			center_label.text = global_event_card.resource.options.number_of_options[1]
-			right_label.text = global_event_card.resource.options.number_of_options[2]
+			left_sprite.text = global_event_card.resource.options.number_of_options[0]
+			center_sprite.text = global_event_card.resource.options.number_of_options[1]
+			right_sprite.text = global_event_card.resource.options.number_of_options[2]
 	
 
 func match_icon(): #STILL NEED EVENT PART
+
 	var reqsandrew
-	var option_name := "center"
-	match global_event_option_cliked:
+	
+	for u in global_event_card.get_node("Left/RequisitesSprites").get_children().size():
+		global_event_card.get_node("Left/RequisitesSprites").get_child(u).visible = true
+		global_event_card.get_node("Left/RequisitesSprites").get_child(u).set_animation("empty")
+		global_event_card.get_node("Left/RewardsSprites").get_child(u).visible = true
+		global_event_card.get_node("Left/RewardsSprites").get_child(u).set_animation("empty")
+	for u in global_event_card.get_node("Center/RequisitesSprites").get_children().size():
+		global_event_card.get_node("Center/RequisitesSprites").get_child(u).visible = true
+		global_event_card.get_node("Center/RequisitesSprites").get_child(u).set_animation("empty")
+		global_event_card.get_node("Center/RewardsSprites").get_child(u).visible = true
+		global_event_card.get_node("Center/RewardsSprites").get_child(u).set_animation("empty")
+	for u in global_event_card.get_node("Right/RequisitesSprites").get_children().size():
+		global_event_card.get_node("Right/RequisitesSprites").get_child(u).visible = true
+		global_event_card.get_node("Right/RequisitesSprites").get_child(u).set_animation("empty")
+		global_event_card.get_node("Right/RewardsSprites").get_child(u).visible = true
+		global_event_card.get_node("Right/RewardsSprites").get_child(u).set_animation("empty")
+	
+	match global_event_options_number:
 		1:
-			option_name = "Left"
 			reqsandrew = global_event_card.resource.RequisitesAndRewards1
+			set_icon(reqsandrew, "Center")
+			show_icons(reqsandrew, "Center")
 		2:
-			option_name = "Center"
+			print("2")
+			reqsandrew = global_event_card.resource.RequisitesAndRewards1
+			set_icon(reqsandrew, "Left")
+			show_icons(reqsandrew, "Left")
 			reqsandrew = global_event_card.resource.RequisitesAndRewards2
+			set_icon(reqsandrew, "Right")
+			show_icons(reqsandrew, "Right")
 		3:
-			option_name = "Right"
+			reqsandrew = global_event_card.resource.RequisitesAndRewards1
+			set_icon(reqsandrew, "Left")
+			show_icons(reqsandrew, "Left")
+			reqsandrew = global_event_card.resource.RequisitesAndRewards2
+			set_icon(reqsandrew, "Center")
+			show_icons(reqsandrew, "Center")
 			reqsandrew = global_event_card.resource.RequisitesAndRewards3
-			
+			set_icon(reqsandrew, "Right")
+			show_icons(reqsandrew, "Right")
 	
-	for u in global_event_card.get_node(option_name +"/RequisitesSprites").get_children().size():
-		global_event_card.get_node(option_name +"/RequisitesSprites").get_child(u).visible = true
-		global_event_card.get_node(option_name +"/RequisitesSprites").get_child(u).set_animation("empty")
-		global_event_card.get_node(option_name +"/RewardsSprites").get_child(u).visible = true
-		global_event_card.get_node(option_name +"/RewardsSprites").get_child(u).set_animation("empty")
+		
+func set_icon(reqsandrew, option_name):
 	
-	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
-		for k in reqsandrew["requisites"]["cards"].size():
-			var card_letter = reqsandrew["requisites"]["cards"][k]
-			global_event_card.get_node(option_name +"/RequisitesSprites").get_children()[k].set_animation(return_animation_name_from_letter(card_letter))
-		#for j in reqsandrew["requisites"]["events"].size():
-			#var event_letter = reqsandrew["requisites"]["events"][j]
-			#global_event_card.get_node("RequisitesSprites").get_children()[j].set_animation(return_animation_name_from_letter(event_letter))
 	if reqsandrew["rewards"]["cards"].size() != 0 or reqsandrew["rewards"]["events"].size() != 0:
+		print("seticons rews")
 		for j in reqsandrew["rewards"]["cards"].size():
 			var card_letter = reqsandrew["rewards"]["cards"][j]
 			global_event_card.get_node(option_name +"/RewardsSprites").get_children()[j].set_animation(return_animation_name_from_letter(card_letter))
-		#for j in reqsandrew["rewards"]["events"].size():
-			#var event_letter = reqsandrew["rewards"]["events"][j]
-			#global_event_card.get_node("RewardsSprites").get_children()[j].set_animation(return_animation_name_from_letter(event_letter))
-	#else:
-		#print(reqsandrew["rewards"]["cards"].size())
-		#print(reqsandrew["rewards"]["events"].size())
-		#print('wutuheeeeell2') 
-func show_icons(): #STILL NEED EVENT PART
-	var reqsandrew = global_event_card.resource.RequisitesAndRewards
+	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
+		print("seticons reqs")
+		for k in reqsandrew["requisites"]["cards"].size():
+			var card_letter = reqsandrew["requisites"]["cards"][k]
+			global_event_card.get_node(option_name +"/RequisitesSprites").get_children()[k].set_animation(return_animation_name_from_letter(card_letter))
 
+func show_icons(reqsandrew, option_name): #STILL NEED EVENT PART
 	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
 		for i in reqsandrew["requisites"]["cards"].size():
 			var card_letter = reqsandrew["requisites"]["cards"][i]
-			global_event_card.get_node("RequisitesSprites").get_child(i).visible = true
-		for j in reqsandrew["requisites"]["events"]:
-			var card_letter = reqsandrew["rewards"]["cards"][j]
-			global_event_card.get_node("RewardsSprites").get_child(j).visible = true
+			for node in global_event_card.get_node(option_name+ "/RequisitesSprites").get_children().size():
+				global_event_card.get_node(option_name+ "/RequisitesSprites").get_children[node].visible = true
+		#for j in reqsandrew["requisites"]["events"]:
+			#var card_letter = reqsandrew["rewards"]["cards"][j]
+			#for node in global_event_card.get_node(option_name+ "/RewardsSprites").get_children().size():
+				#global_event_card.get_node(option_name+ "/RewardsSprites").get_children[node].visible = true
+	if reqsandrew["rewards"]["cards"].size() != 0 or reqsandrew["rewards"]["events"].size() != 0:
+		for i in reqsandrew["rewards"]["cards"].size():
+			var card_letter = reqsandrew["rewards"]["cards"][i]
+			for node in global_event_card.get_node(option_name+ "/RequisitesSprites").get_children().size():
+				global_event_card.get_node(option_name+ "/RequisitesSprites").get_children[node].visible = true
+		#for j in reqsandrew["requisites"]["events"]:
+			#var card_letter = reqsandrew["rewards"]["cards"][j]
+			#for node in global_event_card.get_node(option_name+ "/RewardsSprites").get_children().size():
+				#global_event_card.get_node(option_name+ "/RewardsSprites").get_children[node].visible = true
 
 func return_animation_name_from_letter(card_letter) -> String:
 	match card_letter:

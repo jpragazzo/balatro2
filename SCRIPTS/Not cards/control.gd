@@ -136,6 +136,7 @@ func deactivate_main_area() -> void:
 func option_area_clicked(option_number):
 	event_card_manager.global_event_option_cliked = option_number
 	await event_card_manager.event_req_card_check() #will get the global event option clicked updated
+
 	
 func open_and_activate_options():
 	var main = event_card_manager.global_event_card.get_node("Main")
@@ -153,6 +154,7 @@ func open_and_activate_options():
 		
 		await tween5.finished
 		activate_options_area()
+		
 		
 		event_card_manager.is_event_open = 1
 		
