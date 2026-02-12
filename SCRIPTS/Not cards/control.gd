@@ -120,13 +120,34 @@ func _on_option_area_area_exited(area: Area2D) -> void:
 	tween2.tween_property(area.get_parent(), "scale", Vector2(1, 1), 1)
 
 func activate_options_area() -> void:
-	event_card_manager.get_children()[0].get_node("Left/Option1/Option1Area/CollisionShape2D").disabled = false
-	event_card_manager.get_children()[0].get_node("Center/Option2/Option2Area/CollisionShape2D").disabled = false
-	event_card_manager.get_children()[0].get_node("Right/Option3/Option3Area/CollisionShape2D").disabled = false
+	match event_card_manager.global_event_options_number:
+		1:
+			#event_card_manager.get_children()[0].get_node("Left/Option1/Option1Area/CollisionShape2D").disabled = false
+			event_card_manager.get_children()[0].get_node("Center/Option2/Option2Area/CollisionShape2D").disabled = false
+			#event_card_manager.get_children()[0].get_node("Right/Option3/Option3Area/CollisionShape2D").disabled = false
+		2:
+			event_card_manager.get_children()[0].get_node("Left/Option1/Option1Area/CollisionShape2D").disabled = false
+			#event_card_manager.get_children()[0].get_node("Center/Option2/Option2Area/CollisionShape2D").disabled = false
+			event_card_manager.get_children()[0].get_node("Right/Option3/Option3Area/CollisionShape2D").disabled = false
+		3:
+			event_card_manager.get_children()[0].get_node("Left/Option1/Option1Area/CollisionShape2D").disabled = false
+			event_card_manager.get_children()[0].get_node("Center/Option2/Option2Area/CollisionShape2D").disabled = false
+			event_card_manager.get_children()[0].get_node("Right/Option3/Option3Area/CollisionShape2D").disabled = false
+	
 func deactivate_options_area() -> void:
-	event_card_manager.get_children()[0].get_node("Left/Option1/Option1Area/CollisionShape2D").disabled = true
-	event_card_manager.get_children()[0].get_node("Center/Option2/Option2Area/CollisionShape2D").disabled = true
-	event_card_manager.get_children()[0].get_node("Right/Option3/Option3Area/CollisionShape2D").disabled = true
+	match event_card_manager.global_event_options_number:
+		1:
+			#event_card_manager.get_children()[0].get_node("Left/Option1/Option1Area/CollisionShape2D").disabled = true
+			event_card_manager.get_children()[0].get_node("Center/Option2/Option2Area/CollisionShape2D").disabled = true
+			#event_card_manager.get_children()[0].get_node("Right/Option3/Option3Area/CollisionShape2D").disabled = true
+		2:
+			event_card_manager.get_children()[0].get_node("Left/Option1/Option1Area/CollisionShape2D").disabled = true
+			#event_card_manager.get_children()[0].get_node("Center/Option2/Option2Area/CollisionShape2D").disabled = true
+			event_card_manager.get_children()[0].get_node("Right/Option3/Option3Area/CollisionShape2D").disabled = true
+		3:
+			event_card_manager.get_children()[0].get_node("Left/Option1/Option1Area/CollisionShape2D").disabled = true
+			event_card_manager.get_children()[0].get_node("Center/Option2/Option2Area/CollisionShape2D").disabled = true
+			event_card_manager.get_children()[0].get_node("Right/Option3/Option3Area/CollisionShape2D").disabled = true
 
 func activate_main_area() -> void:
 	event_card_manager.get_children()[0].get_node("Main/MainArea/CollisionShape2D").disabled = false

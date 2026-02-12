@@ -355,6 +355,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left/Option1/Option1Area"]
 shape = SubResource("RectangleShape2D_c7kas")
+disabled = true
 
 [node name="Center" type="Node2D" parent="."]
 z_index = 1
@@ -474,6 +475,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Center/Option2/Option2Area"]
 shape = SubResource("RectangleShape2D_t0fle")
+disabled = true
 
 [node name="Right" type="Node2D" parent="."]
 z_index = 1
@@ -593,3 +595,4 @@ collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right/Option3/Option3Area"]
 shape = SubResource("RectangleShape2D_yt0q1")
+disabled = true

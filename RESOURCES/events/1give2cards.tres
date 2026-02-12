@@ -6,7 +6,7 @@
 script = ExtResource("1_g3d7o")
 RequisitesAndRewards1 = {
 "requisites": {
-"cards": [],
+"cards": ["g", "g"],
 "events": []
 },
 "rewards": {
@@ -16,7 +16,7 @@ RequisitesAndRewards1 = {
 }
 RequisitesAndRewards2 = {
 "requisites": {
-"cards": [],
+"cards": ["g", "g"],
 "events": []
 },
 "rewards": {

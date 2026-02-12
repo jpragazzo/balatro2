@@ -38,23 +38,22 @@ func get_event_requisites_cards(): #returns an array of the 3 arrays containing 
 	
 	if global_event_card.resource.RequisitesAndRewards1["requisites"]["cards"].size() != 0:
 		global_event_options_number += 1
+		print(global_event_options_number)
 		for i in global_event_card.resource.RequisitesAndRewards1["requisites"]["cards"]:
 			event_requisites_cards_array1.append(i)
-			print(i)
 	if global_event_card.resource.RequisitesAndRewards2["requisites"]["cards"].size() != 0:
 		global_event_options_number += 1
+		print(global_event_options_number)
 		for i in global_event_card.resource.RequisitesAndRewards2["requisites"]["cards"]:
 			event_requisites_cards_array2.append(i)
-			print(i)
 	if global_event_card.resource.RequisitesAndRewards3["requisites"]["cards"].size() != 0:
 		global_event_options_number += 1
+		print(global_event_options_number)
 		for i in global_event_card.resource.RequisitesAndRewards3["requisites"]["cards"]:
 			event_requisites_cards_array3.append(i)
-			print(i)
 			
 		
 	var big_array = [event_requisites_cards_array1, event_requisites_cards_array2, event_requisites_cards_array3]
-	print(big_array)
 	return big_array
 
 #func get_event_requisites_events(global_event_card):
@@ -152,14 +151,15 @@ func event_req_card_check():
 	var slot_number := 1
 	
 	var requisites
+	var clicked_requisites
 	
 	
 	# -----------------------------------------
 	# 0. Verifica se há evento ativo
 	# -----------------------------------------
-	print(global_event_option_cliked)
 	if global_event_card != null:
 		requisites = get_event_requisites_cards()
+		print(requisites)
 	else:
 		control.error_message("No event active at this moment!")
 		return -1
@@ -167,15 +167,41 @@ func event_req_card_check():
 	# -----------------------------------------
 	# 1. Coleta requisitos do evento
 	# -----------------------------------------
-	
-	if requisites[(global_event_option_cliked - 1)].is_empty(): #if there are NO options with requisites
-		event_rew_card_give()
-		return 0
+
+	#empty check
+	print(global_event_options_number)
+	match global_event_options_number:
+		1:
+			clicked_requisites = requisites[0]
+			print("clicked_requisites: ", clicked_requisites)
+			if requisites[0].is_empty(): #if there are NO options with requisites
+				event_rew_card_give()
+				return 0
+		2:
+			if global_event_option_cliked == 1: #if there are NO options with requisites
+				clicked_requisites = requisites[0]
+				print("clicked_requisites: ", clicked_requisites)
+				if requisites[0].is_empty(): #if there are NO options with requisites
+					event_rew_card_give()
+					return 0
+			elif global_event_option_cliked == 3:
+				clicked_requisites = requisites[1]
+				print("clicked_requisites: ", clicked_requisites)
+				if requisites[1].is_empty(): #if there are NO options with requisites
+					event_rew_card_give()
+					return 0
+		3:
+			clicked_requisites = requisites[(global_event_option_cliked - 1)]
+			if requisites[(global_event_option_cliked - 1)].is_empty(): #if there are NO options with requisites
+				print("clicked_requisites: ", clicked_requisites)
+				event_rew_card_give()
+				return 0
+
 
 	# -----------------------------------------
 	# 2. Coleta slots com cartas
 	# -----------------------------------------
-	for i in 3:
+	for i in 3: #verifica slots com carta
 		var slot_path = "SlotMiddle" + str(slot_number)
 		var slot = slot_manager.get_node(slot_path)
 
@@ -184,7 +210,11 @@ func event_req_card_check():
 
 		slot_number += 1
 
-	if slots_with_cards.size() < requisites[global_event_option_cliked].size():
+
+	#cards in slots					#requisites of options
+	if slots_with_cards.size() < clicked_requisites.size():
+		print(slots_with_cards.size())
+		print(clicked_requisites.size())
 		control.error_message("Not enough cards!")
 		return 0
 
@@ -274,6 +304,8 @@ func event_req_card_check():
 
 	return 1
 
+
+
 func letter_to_type(letter, _unused):
 	letter = letter.strip_edges()
 
@@ -308,7 +340,6 @@ func match_options_descriptions():
 			center_sprite.text = global_event_card.resource.options.number_of_options[1]
 			right_sprite.text = global_event_card.resource.options.number_of_options[2]
 	
-
 func match_icon(): #STILL NEED EVENT PART
 
 	var reqsandrew
@@ -335,7 +366,6 @@ func match_icon(): #STILL NEED EVENT PART
 			set_icon(reqsandrew, "Center")
 			show_icons(reqsandrew, "Center")
 		2:
-			print("2")
 			reqsandrew = global_event_card.resource.RequisitesAndRewards1
 			set_icon(reqsandrew, "Left")
 			show_icons(reqsandrew, "Left")
@@ -353,16 +383,12 @@ func match_icon(): #STILL NEED EVENT PART
 			set_icon(reqsandrew, "Right")
 			show_icons(reqsandrew, "Right")
 	
-		
 func set_icon(reqsandrew, option_name):
-	
 	if reqsandrew["rewards"]["cards"].size() != 0 or reqsandrew["rewards"]["events"].size() != 0:
-		print("seticons rews")
 		for j in reqsandrew["rewards"]["cards"].size():
 			var card_letter = reqsandrew["rewards"]["cards"][j]
 			global_event_card.get_node(option_name +"/RewardsSprites").get_children()[j].set_animation(return_animation_name_from_letter(card_letter))
 	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
-		print("seticons reqs")
 		for k in reqsandrew["requisites"]["cards"].size():
 			var card_letter = reqsandrew["requisites"]["cards"][k]
 			global_event_card.get_node(option_name +"/RequisitesSprites").get_children()[k].set_animation(return_animation_name_from_letter(card_letter))
@@ -372,7 +398,7 @@ func show_icons(reqsandrew, option_name): #STILL NEED EVENT PART
 		for i in reqsandrew["requisites"]["cards"].size():
 			var card_letter = reqsandrew["requisites"]["cards"][i]
 			for node in global_event_card.get_node(option_name+ "/RequisitesSprites").get_children().size():
-				global_event_card.get_node(option_name+ "/RequisitesSprites").get_children[node].visible = true
+				global_event_card.get_node(option_name+ "/RequisitesSprites").get_children()[node].visible = true
 		#for j in reqsandrew["requisites"]["events"]:
 			#var card_letter = reqsandrew["rewards"]["cards"][j]
 			#for node in global_event_card.get_node(option_name+ "/RewardsSprites").get_children().size():
@@ -381,7 +407,7 @@ func show_icons(reqsandrew, option_name): #STILL NEED EVENT PART
 		for i in reqsandrew["rewards"]["cards"].size():
 			var card_letter = reqsandrew["rewards"]["cards"][i]
 			for node in global_event_card.get_node(option_name+ "/RequisitesSprites").get_children().size():
-				global_event_card.get_node(option_name+ "/RequisitesSprites").get_children[node].visible = true
+				global_event_card.get_node(option_name+ "/RequisitesSprites").get_children()[node].visible = true
 		#for j in reqsandrew["requisites"]["events"]:
 			#var card_letter = reqsandrew["rewards"]["cards"][j]
 			#for node in global_event_card.get_node(option_name+ "/RewardsSprites").get_children().size():
@@ -405,6 +431,7 @@ func return_animation_name_from_letter(card_letter) -> String:
 			return "generic"
 		_:
 			return "invalid"
+
 
 
 func event_rew_card_give() -> void:
