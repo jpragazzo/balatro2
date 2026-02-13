@@ -36,19 +36,15 @@ func get_event_requisites_cards(): #returns an array of the 3 arrays containing 
 	var event_requisites_cards_array2: Array[String]
 	var event_requisites_cards_array3: Array[String]
 	
+	print("global event options number: ", global_event_options_number)
+	
 	if global_event_card.resource.RequisitesAndRewards1["requisites"]["cards"].size() != 0:
-		global_event_options_number += 1
-		print(global_event_options_number)
 		for i in global_event_card.resource.RequisitesAndRewards1["requisites"]["cards"]:
 			event_requisites_cards_array1.append(i)
 	if global_event_card.resource.RequisitesAndRewards2["requisites"]["cards"].size() != 0:
-		global_event_options_number += 1
-		print(global_event_options_number)
 		for i in global_event_card.resource.RequisitesAndRewards2["requisites"]["cards"]:
 			event_requisites_cards_array2.append(i)
 	if global_event_card.resource.RequisitesAndRewards3["requisites"]["cards"].size() != 0:
-		global_event_options_number += 1
-		print(global_event_options_number)
 		for i in global_event_card.resource.RequisitesAndRewards3["requisites"]["cards"]:
 			event_requisites_cards_array3.append(i)
 			
@@ -250,17 +246,18 @@ func event_req_card_check():
 		Card.CardType.BADLUCK: 0
 	}
 
-	for req in requisites[global_event_option_cliked]:
+	for req in requisites[global_event_option_cliked-1]:
 		var type = letter_to_type(req, null)
 		if type == null:
 			control.error_message("Invalid requisite: " + str(req))
 			return 0
 		req_count[type] += 1
+		print("a:", req_count[0])
 
 	# -----------------------------------------
 	# 5. Verifica se há cartas suficientes para requisitos específicos
 	# -----------------------------------------
-	for type in [Card.CardType.MONSTER, Card.CardType.ARMOR, Card.CardType.WEAPON, Card.CardType.CONSUMABLE]:
+	for type in [Card.CardType.MONSTER, Card.CardType.ARMOR, Card.CardType.WEAPON, Card.CardType.CONSUMABLE, Card.CardType.MONEY, Card.CardType.BADLUCK]:
 		if cards_by_type[type].size() < req_count[type]:
 			control.error_message("Event requisites not met!")
 			return 0
@@ -268,7 +265,7 @@ func event_req_card_check():
 	# -----------------------------------------
 	# 6. Seleciona cartas específicas primeiro
 	# -----------------------------------------
-	for type in [Card.CardType.MONSTER, Card.CardType.ARMOR, Card.CardType.WEAPON, Card.CardType.CONSUMABLE]:
+	for type in [Card.CardType.MONSTER, Card.CardType.ARMOR, Card.CardType.WEAPON, Card.CardType.CONSUMABLE, Card.CardType.MONEY, Card.CardType.BADLUCK]:
 		for i in req_count[type]:
 			var entry = cards_by_type[type].pop_front()
 			array_of_cards_to_destroy.append(entry["card"])
@@ -301,6 +298,7 @@ func event_req_card_check():
 	animate_cards(array_of_cards_to_destroy, array_of_slots_to_free)
 	
 	event_rew_card_give()
+	
 
 	return 1
 
@@ -310,13 +308,13 @@ func letter_to_type(letter, _unused):
 	letter = letter.strip_edges()
 
 	match letter:
-		"(c)": return Card.CardType.CONSUMABLE #0
-		"(a)": return Card.CardType.ARMOR #1
-		"(w)": return Card.CardType.WEAPON #2
-		"(m)": return Card.CardType.MONSTER #3
-		"(g)": return Card.CardType.GENERIC #4
-		"($)": return Card.CardType.MONEY #5
-		"(b)": return Card.CardType.BADLUCK #6
+		"c": return Card.CardType.CONSUMABLE #0
+		"a": return Card.CardType.ARMOR #1
+		"w": return Card.CardType.WEAPON #2
+		"m": return Card.CardType.MONSTER #3
+		"g": return Card.CardType.GENERIC #4
+		"$": return Card.CardType.MONEY #5
+		"b": return Card.CardType.BADLUCK #6
 
 	push_warning("Requisite inválido: " + str(letter))
 	return null
