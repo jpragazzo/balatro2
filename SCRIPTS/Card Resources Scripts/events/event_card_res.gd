@@ -35,7 +35,7 @@ class_name EventCard
 }
 
 @export var options = {
-	"number_of_options": []
+	"number_of_options": [] #Option description that will be available on the labels.
 }
 
 enum Skip {

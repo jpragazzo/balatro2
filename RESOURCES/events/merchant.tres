@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_p0npt")
-RequisitesAndRewards = {
+RequisitesAndRewards1 = {
 "requisites": {
 "cards": ["$"],
 "events": []
@@ -14,9 +14,31 @@ RequisitesAndRewards = {
 "events": []
 }
 }
+RequisitesAndRewards2 = {
+"requisites": {
+"cards": ["c"],
+"events": []
+},
+"rewards": {
+"cards": ["$"],
+"events": []
+}
+}
+RequisitesAndRewards3 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+options = {
+"number_of_options": ["Buy some!", "Sell some!"]
+}
 name = "Merchant"
-description = "An honest man across the fields. He might have some food."
-tier = 0
+description = "An honest man across the fields. He might sell some food."
 event_type = 0
 skippable = 0
 bad_luck_cards_if_skip = 0

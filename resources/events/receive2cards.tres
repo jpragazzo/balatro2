@@ -10,7 +10,7 @@ RequisitesAndRewards1 = {
 "events": []
 },
 "rewards": {
-"cards": [],
+"cards": ["g", "g"],
 "events": []
 }
 }
@@ -34,9 +34,11 @@ RequisitesAndRewards3 = {
 "events": []
 }
 }
+options = {
+"number_of_options": ["yay!"]
+}
 name = "Receive two!"
 description = "Hey! You've been gifted two random cards!"
-options = 2
 event_type = 0
 skippable = 0
 bad_luck_cards_if_skip = 0

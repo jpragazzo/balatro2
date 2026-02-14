@@ -159,7 +159,7 @@ func option_area_clicked(option_number):
 	await event_card_manager.event_req_card_check() #will get the global event option clicked updated
 
 	
-func open_and_activate_options():
+func open_or_close_event():
 	var main = event_card_manager.global_event_card.get_node("Main")
 	var left = event_card_manager.global_event_card.get_node("Left")
 	var center = event_card_manager.global_event_card.get_node("Center")
@@ -175,11 +175,13 @@ func open_and_activate_options():
 		
 		await tween5.finished
 		activate_options_area()
+		activate_main_area()
+		print("open")
 		
-		
-		event_card_manager.is_event_open = 1
+		event_card_manager.is_event_open = true
 		
 	else: #CLOSE EVENT
+		deactivate_main_area()
 		deactivate_options_area()
 		var tween3 = get_tree().create_tween()
 		tween3.tween_property(left, "position", Vector2(left.position.x + 130, left.position.y), 0.3)
@@ -189,7 +191,10 @@ func open_and_activate_options():
 		tween5.tween_property(right, "position", Vector2(right.position.x - 130, right.position.y), 0.3)
 		
 		await tween5.finished
+		print("close")
 		
-		event_card_manager.is_event_open = 0
+		event_card_manager.is_event_open = false
+		activate_main_area()
+		
 		
 	

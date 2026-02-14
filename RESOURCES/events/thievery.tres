@@ -6,7 +6,7 @@
 script = ExtResource("1_xh2aj")
 RequisitesAndRewards1 = {
 "requisites": {
-"cards": [],
+"cards": ["$", "a", "w"],
 "events": []
 },
 "rewards": {
@@ -35,7 +35,7 @@ RequisitesAndRewards3 = {
 }
 }
 options = {
-"number_of_options": []
+"number_of_options": ["Yeah, alright."]
 }
 name = "Thievery"
 description = "This isn't your day. They took it all."

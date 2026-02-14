@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="EventCard" load_steps=2 format=3 uid="uid://bxnetuuarldma"]
 
-[ext_resource type="Script" path="res://SCRIPTS/Card Resources Scripts/events/event_card_res.gd" id="1_q80la"]
+[ext_resource type="Script" path="res://SCRIPTS/Card Resources Scripts/events/event_card_res.gd" id="1_m55kj"]
 
 [resource]
-script = ExtResource("1_q80la")
+script = ExtResource("1_m55kj")
 RequisitesAndRewards1 = {
 "requisites": {
-"cards": [],
+"cards": ["g"],
 "events": []
 },
 "rewards": {
@@ -35,7 +35,7 @@ RequisitesAndRewards3 = {
 }
 }
 options = {
-"number_of_options": []
+"number_of_options": ["Give one card and stay cool."]
 }
 name = "Give one!"
 description = "You must give one card. "

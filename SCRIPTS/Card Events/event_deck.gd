@@ -15,7 +15,7 @@ func _ready():
 
 func draw_event_card(): #SMART CARD DRAWING EXPERIENCE: add
 	
-	#event_deck.shuffle()
+	event_deck.shuffle()
 	
 	var resource_path = event_deck[0].resource_path
 	var file_name = resource_path.get_file()

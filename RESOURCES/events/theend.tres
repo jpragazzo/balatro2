@@ -35,7 +35,7 @@ RequisitesAndRewards3 = {
 }
 }
 options = {
-"number_of_options": ["Sadly give two cards.", "Happily give two cards."]
+"number_of_options": ["Give up."]
 }
 name = "The End"
 description = "They've ended you brother. Give yourself in."

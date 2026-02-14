@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EventCard" load_steps=2 format=3 uid="uid://b7m4vt11ppi8i"]
+[gd_resource type="Resource" script_class="EventCard" load_steps=2 format=3 uid="uid://bncxv7novt028"]
 
 [ext_resource type="Script" path="res://SCRIPTS/Card Resources Scripts/events/event_card_res.gd" id="1_qofqe"]
 
@@ -35,9 +35,7 @@ RequisitesAndRewards3 = {
 }
 }
 options = {
-1: [],
-2: [],
-3: []
+"number_of_options": ["Do business."]
 }
 name = "Blacksmith"
 description = "Give out a weapon, receive a piece of armor!"

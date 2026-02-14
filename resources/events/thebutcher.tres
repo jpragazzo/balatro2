@@ -6,11 +6,11 @@
 script = ExtResource("1_jkae6")
 RequisitesAndRewards1 = {
 "requisites": {
-"cards": [],
+"cards": ["m", "$", "$"],
 "events": []
 },
 "rewards": {
-"cards": [],
+"cards": ["c"],
 "events": []
 }
 }
@@ -35,7 +35,7 @@ RequisitesAndRewards3 = {
 }
 }
 options = {
-"number_of_options": []
+"number_of_options": ["Kill the monster."]
 }
 name = "The Butcher"
 description = "A noble butcher demands money for his work.  "

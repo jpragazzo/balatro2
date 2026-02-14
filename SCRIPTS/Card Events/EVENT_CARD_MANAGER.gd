@@ -19,16 +19,29 @@ const CARD = preload("res://scenes/Card.tscn")
 
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
 	global_event_card = event_card
+	
+	print(global_event_card.resource.name)
 	#control.deactivate_options_area()
-	global_event_options_number = global_event_card.resource.options.number_of_options.size()
+	if global_event_card.resource.options.has("number_of_options"):
+		global_event_options_number = global_event_card.resource.options.number_of_options.size()
+	else: 
+		control.error_message("No options available!")
+		return 1
 	match_options_descriptions()
+	match_options_opacity()
 	#await event_req_card_check()
 	#event_requisites_write(event_card) #COMENTING BECAUSE WE HAVE ICONS NOW
 	lock_current_event()
 	enable_skip()
 	match_icon()
 	#show_icons()
-#func end_event(event_card)
+
+func finish_event():
+
+	is_event_open = true
+	control.open_or_close_event()
+	erase_global_event_and_block_buttons()
+	add_events_from_cards_in_hand()
 
 func get_event_requisites_cards(): #returns an array of the 3 arrays containing the event requisites
 	
@@ -36,7 +49,6 @@ func get_event_requisites_cards(): #returns an array of the 3 arrays containing 
 	var event_requisites_cards_array2: Array[String]
 	var event_requisites_cards_array3: Array[String]
 	
-	print("global event options number: ", global_event_options_number)
 	
 	if global_event_card.resource.RequisitesAndRewards1["requisites"]["cards"].size() != 0:
 		for i in global_event_card.resource.RequisitesAndRewards1["requisites"]["cards"]:
@@ -155,7 +167,6 @@ func event_req_card_check():
 	# -----------------------------------------
 	if global_event_card != null:
 		requisites = get_event_requisites_cards()
-		print(requisites)
 	else:
 		control.error_message("No event active at this moment!")
 		return -1
@@ -165,31 +176,26 @@ func event_req_card_check():
 	# -----------------------------------------
 
 	#empty check
-	print(global_event_options_number)
 	match global_event_options_number:
 		1:
 			clicked_requisites = requisites[0]
-			print("clicked_requisites: ", clicked_requisites)
 			if requisites[0].is_empty(): #if there are NO options with requisites
 				event_rew_card_give()
 				return 0
 		2:
 			if global_event_option_cliked == 1: #if there are NO options with requisites
 				clicked_requisites = requisites[0]
-				print("clicked_requisites: ", clicked_requisites)
 				if requisites[0].is_empty(): #if there are NO options with requisites
 					event_rew_card_give()
 					return 0
 			elif global_event_option_cliked == 3:
 				clicked_requisites = requisites[1]
-				print("clicked_requisites: ", clicked_requisites)
 				if requisites[1].is_empty(): #if there are NO options with requisites
 					event_rew_card_give()
 					return 0
 		3:
 			clicked_requisites = requisites[(global_event_option_cliked - 1)]
 			if requisites[(global_event_option_cliked - 1)].is_empty(): #if there are NO options with requisites
-				print("clicked_requisites: ", clicked_requisites)
 				event_rew_card_give()
 				return 0
 
@@ -209,8 +215,6 @@ func event_req_card_check():
 
 	#cards in slots					#requisites of options
 	if slots_with_cards.size() < clicked_requisites.size():
-		print(slots_with_cards.size())
-		print(clicked_requisites.size())
 		control.error_message("Not enough cards!")
 		return 0
 
@@ -246,13 +250,13 @@ func event_req_card_check():
 		Card.CardType.BADLUCK: 0
 	}
 
-	for req in requisites[global_event_option_cliked-1]:
+	for req in clicked_requisites:
 		var type = letter_to_type(req, null)
 		if type == null:
 			control.error_message("Invalid requisite: " + str(req))
 			return 0
 		req_count[type] += 1
-		print("a:", req_count[0])
+
 
 	# -----------------------------------------
 	# 5. Verifica se há cartas suficientes para requisitos específicos
@@ -380,7 +384,26 @@ func match_icon(): #STILL NEED EVENT PART
 			reqsandrew = global_event_card.resource.RequisitesAndRewards3
 			set_icon(reqsandrew, "Right")
 			show_icons(reqsandrew, "Right")
+
+func match_options_opacity():
+	var left_sprite = global_event_card.get_node("Left")
+	var center_sprite = global_event_card.get_node("Center")
+	var right_sprite = global_event_card.get_node("Right")
 	
+	match global_event_options_number:
+		1:
+			left_sprite.modulate = Color(1, 1, 1, 0.3)
+			center_sprite.modulate = Color(1, 1, 1, 1)
+			right_sprite.modulate = Color(1, 1, 1, 0.3)
+		2:
+			left_sprite.modulate = Color(1, 1, 1, 1)
+			center_sprite.modulate = Color(1, 1, 1, 0.3)
+			right_sprite.modulate = Color(1, 1, 1, 1)
+		3:
+			left_sprite.modulate = Color(1, 1, 1, 1)
+			center_sprite.modulate = Color(1, 1, 1, 1)
+			right_sprite.modulate = Color(1, 1, 1, 1)
+
 func set_icon(reqsandrew, option_name):
 	if reqsandrew["rewards"]["cards"].size() != 0 or reqsandrew["rewards"]["events"].size() != 0:
 		for j in reqsandrew["rewards"]["cards"].size():
@@ -431,7 +454,7 @@ func return_animation_name_from_letter(card_letter) -> String:
 			return "invalid"
 
 
-
+  
 func event_rew_card_give() -> void:
 	var reqandrew
 	var rewards: PackedStringArray = []
@@ -477,11 +500,6 @@ func event_rew_card_give() -> void:
 	else:
 		control.error_message("Free up the slots, take your cards!")
 		return
-
-func finish_event():
-
-	erase_global_event_and_block_buttons()
-	add_events_from_cards_in_hand()
 
 func skip_event():
 	if global_event_card == null:

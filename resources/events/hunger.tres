@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_uxxaf")
-RequisitesAndRewards = {
+RequisitesAndRewards1 = {
 "requisites": {
 "cards": ["c"],
 "events": []
@@ -14,8 +14,31 @@ RequisitesAndRewards = {
 "events": []
 }
 }
-tier = 0
+RequisitesAndRewards2 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+RequisitesAndRewards3 = {
+"requisites": {
+"cards": [],
+"events": []
+},
+"rewards": {
+"cards": [],
+"events": []
+}
+}
+options = {
+"number_of_options": ["Feed them what we have."]
+}
 name = "Hunger"
 description = "Your party is hungry! Feed them some chicken. "
+event_type = 0
 skippable = 1
 bad_luck_cards_if_skip = 1
