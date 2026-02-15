@@ -15,7 +15,7 @@ var current_score := 0
 @onready var player_hand: Node2D = $"../PlayerHand"
 
 
-const CARD = preload("res://scenes/Card.tscn")
+const CARD = preload("res://SCENES/Card.tscn")
 
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
 	global_event_card = event_card
@@ -38,8 +38,8 @@ func start_event(event_card): #chamada no event_deck quando clica na area do dec
 
 func finish_event():
 
-	is_event_open = true
-	control.open_or_close_event()
+	if is_event_open:
+		control.open_or_close_event()
 	erase_global_event_and_block_buttons()
 	add_events_from_cards_in_hand()
 
@@ -417,7 +417,6 @@ func set_icon(reqsandrew, option_name):
 func show_icons(reqsandrew, option_name): #STILL NEED EVENT PART
 	if reqsandrew["requisites"]["cards"].size() != 0 or reqsandrew["requisites"]["events"].size() != 0:
 		for i in reqsandrew["requisites"]["cards"].size():
-			var card_letter = reqsandrew["requisites"]["cards"][i]
 			for node in global_event_card.get_node(option_name+ "/RequisitesSprites").get_children().size():
 				global_event_card.get_node(option_name+ "/RequisitesSprites").get_children()[node].visible = true
 		#for j in reqsandrew["requisites"]["events"]:
@@ -426,7 +425,6 @@ func show_icons(reqsandrew, option_name): #STILL NEED EVENT PART
 				#global_event_card.get_node(option_name+ "/RewardsSprites").get_children[node].visible = true
 	if reqsandrew["rewards"]["cards"].size() != 0 or reqsandrew["rewards"]["events"].size() != 0:
 		for i in reqsandrew["rewards"]["cards"].size():
-			var card_letter = reqsandrew["rewards"]["cards"][i]
 			for node in global_event_card.get_node(option_name+ "/RequisitesSprites").get_children().size():
 				global_event_card.get_node(option_name+ "/RequisitesSprites").get_children()[node].visible = true
 		#for j in reqsandrew["requisites"]["events"]:
@@ -524,7 +522,8 @@ func skip_event():
 
 func erase_global_event_and_block_buttons():
 	var tween = get_tree().create_tween()
-	tween.tween_property(global_event_card, "scale", Vector2(0.0,0.0), 1.5).set_trans(Tween.TRANS_ELASTIC)
+	tween.set_ease(Tween.EASE_IN)
+	tween.tween_property(global_event_card, "scale", Vector2(0.0,0.0), 0.7).set_trans(Tween.TRANS_BACK)
 	
 	control.deactivate_options_area()
 	disable_skip()
@@ -568,7 +567,8 @@ func add_events_from_cards_in_hand(): #triggered every time a card is added or r
 func animate_cards(array_of_cards_to_destroy, array_of_slots_to_free):
 	for card in array_of_cards_to_destroy:
 		var tween = get_tree().create_tween()
-		tween.tween_property(card, "scale", Vector2(0.0,0.0), 1.5).set_trans(Tween.TRANS_ELASTIC)
+		tween.set_ease(Tween.EASE_IN)
+		tween.tween_property(card, "scale", Vector2(0.0,0.0), 0.7).set_trans(Tween.TRANS_BACK)
 		erase_card(card, tween)
 		
 	for slot in array_of_slots_to_free:

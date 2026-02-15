@@ -72,7 +72,9 @@ func load_tres_resources_from_folder(path: String) -> Array:
 
 func update_event_card_position(event_card, new_position):
 	var tween = get_tree().create_tween()
-	tween.tween_property(event_card, "position", new_position, 0.3)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_CIRC)
+	tween.tween_property(event_card, "position", new_position, 0.6)
 	
 	await tween.finished
 	control.activate_main_area()

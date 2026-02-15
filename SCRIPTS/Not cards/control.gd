@@ -158,6 +158,7 @@ func option_area_clicked(option_number):
 	event_card_manager.global_event_option_cliked = option_number
 	await event_card_manager.event_req_card_check() #will get the global event option clicked updated
 
+
 	
 func open_or_close_event():
 	var main = event_card_manager.global_event_card.get_node("Main")
@@ -166,12 +167,16 @@ func open_or_close_event():
 	var right = event_card_manager.global_event_card.get_node("Right")
 	
 	if !event_card_manager.is_event_open: #OPEN EVENT
+		deactivate_main_area()
 		var tween3 = get_tree().create_tween()
-		tween3.tween_property(left, "position", Vector2(left.position.x - 130, left.position.y), 0.3)
+		tween3.set_trans(Tween.TRANS_SINE)
+		tween3.tween_property(left, "position", Vector2(left.position.x - 130, left.position.y), 0.4)
 		var tween4 = get_tree().create_tween()
-		tween4.tween_property(main, "position", Vector2(center.position.x, center.position.y-170), 0.3)
+		tween4.set_trans(Tween.TRANS_SINE)
+		tween4.tween_property(main, "position", Vector2(center.position.x, center.position.y-170), 0.4)
 		var tween5 = get_tree().create_tween()
-		tween5.tween_property(right, "position", Vector2(right.position.x + 130, right.position.y), 0.3)
+		tween5.set_trans(Tween.TRANS_SINE)
+		tween5.tween_property(right, "position", Vector2(right.position.x + 130, right.position.y), 0.4)
 		
 		await tween5.finished
 		activate_options_area()
@@ -184,11 +189,14 @@ func open_or_close_event():
 		deactivate_main_area()
 		deactivate_options_area()
 		var tween3 = get_tree().create_tween()
-		tween3.tween_property(left, "position", Vector2(left.position.x + 130, left.position.y), 0.3)
+		tween3.set_trans(Tween.TRANS_SINE)
+		tween3.tween_property(left, "position", Vector2(left.position.x + 130, left.position.y), 0.4)
 		var tween4 = get_tree().create_tween()
-		tween4.tween_property(main, "position", Vector2(center.position.x, center.position.y), 0.3)
+		tween4.set_trans(Tween.TRANS_SINE)
+		tween4.tween_property(main, "position", Vector2(center.position.x, center.position.y), 0.4)
 		var tween5 = get_tree().create_tween()
-		tween5.tween_property(right, "position", Vector2(right.position.x - 130, right.position.y), 0.3)
+		tween5.set_trans(Tween.TRANS_SINE)
+		tween5.tween_property(right, "position", Vector2(right.position.x - 130, right.position.y), 0.4)
 		
 		await tween5.finished
 		print("close")

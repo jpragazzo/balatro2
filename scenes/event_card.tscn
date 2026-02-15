@@ -237,11 +237,18 @@ collision_mask = 0
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_lb26t")
 
+[node name="Sprite2D" type="Sprite2D" parent="Main"]
+
 [node name="Left" type="Node2D" parent="."]
 z_index = 1
 position = Vector2(-1, 0)
 
 [node name="EventCard" type="Sprite2D" parent="Left"]
+scale = Vector2(3, 3)
+texture = ExtResource("1_333o4")
+
+[node name="Yellow" type="Sprite2D" parent="Left"]
+modulate = Color(1, 0.890196, 0.509804, 0)
 scale = Vector2(3, 3)
 texture = ExtResource("1_333o4")
 
@@ -276,7 +283,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Give" type="Label" parent="Left"]
-modulate = Color(0.133333, 0.133333, 0.133333, 1)
+modulate = Color(0.4, 0.4, 0.4, 1)
 offset_left = -10.0
 offset_top = -32.0
 offset_right = 10.0
@@ -285,7 +292,7 @@ text = "GIVE:"
 label_settings = SubResource("LabelSettings_od3ni")
 
 [node name="Take" type="Label" parent="Left"]
-modulate = Color(0.133333, 0.133333, 0.133333, 1)
+modulate = Color(0.4, 0.4, 0.4, 1)
 offset_left = -11.0
 offset_top = 19.0
 offset_right = 11.0
@@ -365,6 +372,11 @@ position = Vector2(-1, 0)
 scale = Vector2(3, 3)
 texture = ExtResource("1_333o4")
 
+[node name="Yellow" type="Sprite2D" parent="Center"]
+modulate = Color(1, 0.890196, 0.509804, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("1_333o4")
+
 [node name="EventChoise2" type="Label" parent="Center"]
 modulate = Color(0.133333, 0.133333, 0.133333, 1)
 offset_left = -54.0
@@ -396,7 +408,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Give" type="Label" parent="Center"]
-modulate = Color(0.133333, 0.133333, 0.133333, 1)
+modulate = Color(0.4, 0.4, 0.4, 1)
 offset_left = -10.0
 offset_top = -32.0
 offset_right = 10.0
@@ -405,7 +417,7 @@ text = "GIVE:"
 label_settings = SubResource("LabelSettings_od3ni")
 
 [node name="Take" type="Label" parent="Center"]
-modulate = Color(0.133333, 0.133333, 0.133333, 1)
+modulate = Color(0.4, 0.4, 0.4, 1)
 offset_left = -11.0
 offset_top = 19.0
 offset_right = 11.0
@@ -485,6 +497,12 @@ position = Vector2(-1, 0)
 scale = Vector2(3, 3)
 texture = ExtResource("1_333o4")
 
+[node name="Yellow" type="Sprite2D" parent="Right"]
+modulate = Color(1, 0.890196, 0.509804, 0)
+position = Vector2(1, 0)
+scale = Vector2(3, 3)
+texture = ExtResource("1_333o4")
+
 [node name="EventChoise3" type="Label" parent="Right"]
 modulate = Color(0.133333, 0.133333, 0.133333, 1)
 offset_left = -54.0
@@ -516,7 +534,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Give" type="Label" parent="Right"]
-modulate = Color(0.133333, 0.133333, 0.133333, 1)
+modulate = Color(0.4, 0.4, 0.4, 1)
 offset_left = -10.0
 offset_top = -32.0
 offset_right = 10.0
@@ -525,7 +543,7 @@ text = "GIVE:"
 label_settings = SubResource("LabelSettings_od3ni")
 
 [node name="Take" type="Label" parent="Right"]
-modulate = Color(0.133333, 0.133333, 0.133333, 1)
+modulate = Color(0.4, 0.4, 0.4, 1)
 offset_left = -11.0
 offset_top = 19.0
 offset_right = 11.0
@@ -596,3 +614,10 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right/Option3/Option3Area"]
 shape = SubResource("RectangleShape2D_yt0q1")
 disabled = true
+
+[connection signal="mouse_entered" from="Left/Option1/Option1Area" to="." method="option_area_shine_signal_left"]
+[connection signal="mouse_exited" from="Left/Option1/Option1Area" to="." method="option_area_unshine_signal_left"]
+[connection signal="mouse_entered" from="Center/Option2/Option2Area" to="." method="option_area_shine_signal_center"]
+[connection signal="mouse_exited" from="Center/Option2/Option2Area" to="." method="option_area_unshine_signal_center"]
+[connection signal="mouse_entered" from="Right/Option3/Option3Area" to="." method="option_area_shine_signal_right"]
+[connection signal="mouse_exited" from="Right/Option3/Option3Area" to="." method="option_area_unshine_signal_right"]
