@@ -16,7 +16,7 @@ subpixel_positioning = 0
 font = SubResource("SystemFont_52fio")
 
 [node name="Card" type="Control"]
-z_index = 1
+z_index = 50
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0

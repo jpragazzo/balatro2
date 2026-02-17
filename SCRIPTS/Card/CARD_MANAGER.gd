@@ -26,7 +26,10 @@ var original_slot: Node = null  # referência ao slot de origem durante o drag
 
 func start_drag(card):
 	card_being_dragged = card
-	card.scale = Vector2(1, 1)
+	#card.scale = Vector2(1, 1)
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property(card, "rotation", 0, 0.2)
 
 	# Guarda o slot original para fallback
 	original_slot = card.current_slot
@@ -107,12 +110,13 @@ func on_hovered_off_card(card):
 			is_hovering_on_card = false
 
 func highlight_card(card, hovered):
-	if hovered:
-		card.scale = Vector2(1.05, 1.05)
-		card.z_index = 2
-	else:
-		card.scale = Vector2(1, 1)
-		card.z_index = 1
+	pass
+	#if hovered:
+		#card.scale = Vector2(1.05, 1.05)
+		#card.z_index = 2
+	#else:
+		#card.scale = Vector2(1, 1)
+		#card.z_index = 1
 
 func raycast_check_for_card_slot():
 	var space_state = get_world_2d().direct_space_state

@@ -20,7 +20,6 @@ const CARD = preload("res://SCENES/Card.tscn")
 func start_event(event_card): #chamada no event_deck quando clica na area do deck
 	global_event_card = event_card
 	
-	print(global_event_card.resource.name)
 	#control.deactivate_options_area()
 	if global_event_card.resource.options.has("number_of_options"):
 		global_event_options_number = global_event_card.resource.options.number_of_options.size()
@@ -153,8 +152,8 @@ func score():
 		control.save(int(control.current_score_number.text))
 	
 func event_req_card_check():
-	var array_of_cards_to_destroy: Array[Node2D] = []
-	var array_of_slots_to_free: Array[Node2D] = []
+	var array_of_cards_to_destroy = []
+	var array_of_slots_to_free = []
 	var slots_with_cards: Array[String] = []
 	var slot_number := 1
 	

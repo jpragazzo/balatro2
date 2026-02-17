@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dslyh5wetexp1"]
+
+[ext_resource type="Script" path="res://SCRIPTS/Not cards/player_hand.gd" id="1_a7ip2"]
+
+[sub_resource type="Curve" id="Curve_wu3sd"]
+_data = [Vector2(0, 0.252747), 0.0, 2.0, 0, 0, Vector2(0.5, 0.747253), 0.0, 0.0, 0, 0, Vector2(1, 0.252747), -2.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_g4i4g"]
+min_value = -1.0
+_data = [Vector2(0, -1), 0.0, 5.0, 0, 0, Vector2(0.5, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(1, 1), 5.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83eum"]
+size = Vector2(1062, 271)
+
+[node name="PlayerHand" type="Node2D"]
+script = ExtResource("1_a7ip2")
+hand_curve = SubResource("Curve_wu3sd")
+rotation_curve = SubResource("Curve_g4i4g")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_83eum")

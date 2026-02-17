@@ -1,8 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://diuo6tplhlwfn"]
+[gd_scene load_steps=21 format=3 uid="uid://diuo6tplhlwfn"]
 
 [ext_resource type="PackedScene" uid="uid://ctjnk36stbbh5" path="res://SCENES/tabledark.tscn" id="1_xekhy"]
 [ext_resource type="Script" path="res://SCRIPTS/Card/CARD_MANAGER.gd" id="2_yo032"]
-[ext_resource type="Script" path="res://SCRIPTS/Not cards/player_hand.gd" id="3_jvpbs"]
+[ext_resource type="PackedScene" uid="uid://dslyh5wetexp1" path="res://SCENES/player_hand.tscn" id="3_n3riy"]
 [ext_resource type="PackedScene" uid="uid://cqxn6767vob5b" path="res://SCENES/deck.tscn" id="4_h2bbw"]
 [ext_resource type="Script" path="res://SCRIPTS/Not cards/INPUT_MANAGER.gd" id="5_shxtj"]
 [ext_resource type="PackedScene" uid="uid://yli63mx0h43d" path="res://SCENES/card_slot.tscn" id="6_ssbln"]
@@ -13,9 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://b561nb00p3me5" path="res://SCENES/event_deck.tscn" id="11_ildph"]
 [ext_resource type="Script" path="res://SCRIPTS/Card Events/EVENT_CARD_MANAGER.gd" id="12_xi107"]
 [ext_resource type="Script" path="res://SCRIPTS/Not cards/control.gd" id="13_q3rhg"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_83eum"]
-size = Vector2(1386, 271)
 
 [sub_resource type="LabelSettings" id="LabelSettings_h0vud"]
 font_size = 32
@@ -48,16 +45,8 @@ position = Vector2(960, 540)
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("2_yo032")
 
-[node name="PlayerHand" type="Node2D" parent="."]
-script = ExtResource("3_jvpbs")
-
-[node name="Area2D" type="Area2D" parent="PlayerHand"]
-collision_layer = 64
-collision_mask = 64
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHand/Area2D"]
-position = Vector2(973, 943.5)
-shape = SubResource("RectangleShape2D_83eum")
+[node name="PlayerHand" parent="." instance=ExtResource("3_n3riy")]
+position = Vector2(960, 944)
 
 [node name="SlotManager" type="Node2D" parent="."]
 
