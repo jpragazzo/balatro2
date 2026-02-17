@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 signal hovered
 signal hovered_off
