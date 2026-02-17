@@ -1,6 +1,6 @@
 extends Node2D
 
-var player_deck = ["skeleton", "chicken", "sword", "cap", "money"] #nomes dos pngs precisam ser iguais aos dos .tres
+var player_deck = ["skeleton", "chicken", "sword", "cap", "money", "money", "money", "money"] #nomes dos pngs precisam ser iguais aos dos .tres
 
 @onready var player_hand: Node2D = $"../PlayerHand"
 @onready var card_manager: Node2D = $"../CardManager"

@@ -21,6 +21,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+pivot_offset = Vector2(0, 90)
 script = ExtResource("1_bgg7d")
 
 [node name="Area2D" type="Area2D" parent="."]

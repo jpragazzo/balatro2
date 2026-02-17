@@ -14,6 +14,7 @@ var resource: Resource
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print(card_type)
 	#deck.send_card_sprite_and_res.connect(set_sprite_and_resource)
 	get_parent().connect_card_signals(self)
 	
