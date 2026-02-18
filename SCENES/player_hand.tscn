@@ -27,11 +27,14 @@ collision_mask = 64
 position = Vector2(0, -37.75)
 shape = SubResource("RectangleShape2D_83eum")
 
-[node name="Area2D2" type="Area2D" parent="."]
+[node name="HoverArea" type="Area2D" parent="."]
 collision_layer = 64
 collision_mask = 64
 monitorable = false
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HoverArea"]
 position = Vector2(2, -2)
 polygon = PackedVector2Array(-624, -137, -210, -250, 199, -248, 631, -146, 563, 138, -212.71, 138, -562, 138)
+
+[connection signal="mouse_entered" from="HoverArea" to="." method="_on_hover_area_mouse_entered"]
+[connection signal="mouse_exited" from="HoverArea" to="." method="_on_hover_area_mouse_exited"]

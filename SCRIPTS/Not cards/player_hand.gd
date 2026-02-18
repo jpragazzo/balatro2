@@ -16,13 +16,24 @@ var hand_y: int = 900
 @export var y_min := 50
 @export var y_max := -150
 
-
+var mouse_hovering = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	center_screen_x = get_viewport().size.x / 2 
 
-
+func _process(delta: float) -> void:
+	if !mouse_hovering:
+		return
+	
+	var mouse_pos = get_global_mouse_position() #vector2
+	var max_distance = 100 #minimum distance for starting hovering
+	var current_distance = 0
+	
+	if current_distance > max_distance:
+		return
+	
+	
 
 func add_card_to_hand(card):
 	if card not in player_hand: # se carta nao esta na mao
@@ -100,8 +111,7 @@ func sort_by_type(a, b):
 
 
 func _on_hover_area_mouse_entered() -> void:
-	pass # Replace with function body.
-
+	mouse_hovering = true
 
 func _on_hover_area_mouse_exited() -> void:
-	pass # Replace with function body.
+	mouse_hovering = false 
