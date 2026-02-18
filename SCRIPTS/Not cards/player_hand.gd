@@ -26,14 +26,46 @@ func _process(delta: float) -> void:
 	if !mouse_hovering:
 		return
 	
+	var close_card = get_card_close_to_mouse()
+	
+	print(close_card)
+	
+
+func get_card_close_to_mouse():
+		
 	var mouse_pos = get_global_mouse_position() #vector2
-	var max_distance = 100 #minimum distance for starting hovering
+	var max_distance = 10000 #minimum distance for starting hovering
 	var current_distance = 0
+	var close_cards = []
+	var card_hovered 
+	var closest_card
 	
-	if current_distance > max_distance:
-		return
+	for card in player_hand: #cicla pra achar cartas perto
+		if mouse_pos.distance_squared_to(card.global_position) < max_distance:
+			if card not in close_cards:
+				close_cards.append(card)
+		else: 
+			closest_card = null
+			return closest_card
 	
 	
+	if close_cards.size() == 1: #Se tiver só uma carta perto, é ela mesmo
+		card_hovered = close_cards[0]
+		closest_card = card_hovered
+		return closest_card
+	
+	else: #Se tiver mais de uma por perto...
+		var min_dist = null
+		for closecard in close_cards: #cicla entre as por perto
+			if min_dist == null: #se for a primeira
+				min_dist = mouse_pos.distance_to(closecard.global_position)
+				closest_card = closecard #assume o papel de mais próxima
+			else: #se já for a segunda detectada em diante e se a distancia for menor que a primeira ou anterior
+				if mouse_pos.distance_to(closecard.global_position) < min_dist:
+					min_dist = mouse_pos.distance_to(closecard.global_position)
+					closest_card = closecard
+					
+	return closest_card
 
 func add_card_to_hand(card):
 	if card not in player_hand: # se carta nao esta na mao
