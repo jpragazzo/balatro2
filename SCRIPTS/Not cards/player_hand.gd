@@ -14,14 +14,14 @@ var hand_y: int = 900
 @export var max_rotation_degrees := 10
 @export var x_sep := 20
 @export var y_min := 50
-@export var y_max := -50
+@export var y_max := -150
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	center_screen_x = get_viewport().size.x / 2 
-	
+
 
 
 func add_card_to_hand(card):
@@ -59,7 +59,7 @@ func update_hand_positions():
 		var rot_multiplier := rotation_curve.sample(1.0 / (total_cards-1) * i)
 		
 		if total_cards == 1:
-			y_multiplier = 0.0
+			y_multiplier = 0.4
 			rot_multiplier = 0.0
 		
 		var final_pos_x = (offset + card_width * i + final_x_sep * i) + 510
@@ -85,8 +85,9 @@ func update_hand_positions():
 
 func animate_card_to_position(card, new_position):
 	var tween = get_tree().create_tween()
+	tween.set_trans(Tween.TRANS_CIRC)
 	tween.tween_property(card, "position", new_position, 0.2)
-	
+
 func spin_card(card, new_rotation):
 	var tween2 = get_tree().create_tween()
 	tween2.tween_property(card, "rotation_degrees", new_rotation, 0.2)
@@ -96,3 +97,11 @@ func set_card_z_index(card, i):
 	
 func sort_by_type(a, b):
 	return a.card_type < b.card_type
+
+
+func _on_hover_area_mouse_entered() -> void:
+	pass # Replace with function body.
+
+
+func _on_hover_area_mouse_exited() -> void:
+	pass # Replace with function body.

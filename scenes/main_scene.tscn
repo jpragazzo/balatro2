@@ -51,13 +51,13 @@ position = Vector2(960, 944)
 [node name="SlotManager" type="Node2D" parent="."]
 
 [node name="SlotMiddle1" parent="SlotManager" instance=ExtResource("6_ssbln")]
-position = Vector2(800, 676)
+position = Vector2(800, 572)
 
 [node name="SlotMiddle2" parent="SlotManager" instance=ExtResource("6_ssbln")]
-position = Vector2(960, 676)
+position = Vector2(960, 572)
 
 [node name="SlotMiddle3" parent="SlotManager" instance=ExtResource("6_ssbln")]
-position = Vector2(1119, 676)
+position = Vector2(1119, 572)
 
 [node name="CardSlotWeapon" parent="SlotManager" instance=ExtResource("7_xxnxd")]
 position = Vector2(150, 677)
@@ -77,7 +77,7 @@ script = ExtResource("5_shxtj")
 position = Vector2(1757, 881)
 
 [node name="EventDeck" parent="." instance=ExtResource("11_ildph")]
-position = Vector2(1756, 540)
+position = Vector2(1756, 572)
 
 [node name="EventCardManager" type="Node2D" parent="."]
 script = ExtResource("12_xi107")
@@ -95,10 +95,10 @@ one_shot = true
 
 [node name="Skip" type="Label" parent="Control"]
 layout_mode = 0
-offset_left = 1135.0
-offset_top = 133.0
-offset_right = 1200.0
-offset_bottom = 178.0
+offset_left = 1158.0
+offset_top = 47.0
+offset_right = 1223.0
+offset_bottom = 92.0
 pivot_offset = Vector2(32, 22)
 text = "Skip"
 label_settings = SubResource("LabelSettings_h0vud")
@@ -114,9 +114,9 @@ shape = SubResource("RectangleShape2D_3wxf7")
 [node name="Errors" type="Label" parent="Control"]
 layout_mode = 0
 offset_left = 745.0
-offset_top = 536.0
+offset_top = 432.0
 offset_right = 1174.0
-offset_bottom = 570.0
+offset_bottom = 466.0
 theme_override_colors/font_color = Color(0.445002, 0.193703, 0.220807, 1)
 theme_override_colors/font_shadow_color = Color(0.839216, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0.741176, 0, 0, 1)

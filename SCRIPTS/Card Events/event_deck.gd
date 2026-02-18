@@ -32,7 +32,7 @@ func draw_event_card(): #SMART CARD DRAWING EXPERIENCE: add
 	
 	event_card_manager.add_child(new_card)
 	
-	update_event_card_position(new_card, Vector2(get_viewport().get_visible_rect().size.x / 2, self.position.y - 200))
+	update_event_card_position(new_card, Vector2(get_viewport().get_visible_rect().size.x / 2, self.position.y - 300))
 	update_event_card_scale(new_card, Vector2(1.7,1.7))
 	
 func activate_badluck_events():
@@ -83,7 +83,3 @@ func update_event_card_scale(event_card, new_scale):
 
 	var tween2 = get_tree().create_tween()
 	tween2.tween_property(event_card, "scale", new_scale, 0.2)
-
-
-	
-	
