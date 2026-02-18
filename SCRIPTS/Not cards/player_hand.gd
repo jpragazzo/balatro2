@@ -1,6 +1,7 @@
 extends Node2D
 
 @onready var event_card_manager: Node2D = $"../EventCardManager"
+@onready var debug_label: Label = %DebugLabel
 
 var player_hand = []
 var center_screen_x 
@@ -23,48 +24,60 @@ func _ready() -> void:
 	center_screen_x = get_viewport().size.x / 2 
 
 func _process(delta: float) -> void:
-	if !mouse_hovering:
-		return
 	
 	var close_card = get_card_close_to_mouse()
 	
-	print(close_card)
+	
 	
 
 func get_card_close_to_mouse():
-		
+	#print("get_card") OK
+	
+	if player_hand.size() == 0:
+		return
+	
+	#print("get_card") OK
+	
 	var mouse_pos = get_global_mouse_position() #vector2
-	var max_distance = 10000 #minimum distance for starting hovering
+	var max_distance = 100 #minimum distance for starting hovering
 	var current_distance = 0
 	var close_cards = []
 	var card_hovered 
-	var closest_card
-	
-	for card in player_hand: #cicla pra achar cartas perto
-		if mouse_pos.distance_squared_to(card.global_position) < max_distance:
-			if card not in close_cards:
+	var closest_card = null
+	var min_dist = null
+	#print("get_card") OK
+
+	for card in player_hand: #cicla adicionando ou removendo as cartas proximas
+		var distance = mouse_pos.distance_to(card.global_position)
+		if distance < max_distance: # se estiver perto
+			if !close_cards.has(card): # e a carta nn tiver ainda ele coloca
 				close_cards.append(card)
-		else: 
-			closest_card = null
-			return closest_card
+		else: 						# se estiver longe
+			if close_cards.has(card): # e estiver, ele tira
+				close_cards.pop_at(close_cards.find(card)) 
 	
 	
-	if close_cards.size() == 1: #Se tiver só uma carta perto, é ela mesmo
+	if close_cards.size() == 0: #já checou as perto, se não tem, não tem
+		return
+	
+	if close_cards.size() == 1: # Se ta PERTO e so tem UMA, é ela que o mouse ta hovering
 		card_hovered = close_cards[0]
 		closest_card = card_hovered
+		print("1")
 		return closest_card
-	
-	else: #Se tiver mais de uma por perto...
-		var min_dist = null
-		for closecard in close_cards: #cicla entre as por perto
-			if min_dist == null: #se for a primeira
+	else:					# Se ta PERTO e tem >2
+		for closecard in close_cards: 
+			print("2")
+			if min_dist == null: #se for a primeira vez que a função roda
 				min_dist = mouse_pos.distance_to(closecard.global_position)
 				closest_card = closecard #assume o papel de mais próxima
 			else: #se já for a segunda detectada em diante e se a distancia for menor que a primeira ou anterior
 				if mouse_pos.distance_to(closecard.global_position) < min_dist:
 					min_dist = mouse_pos.distance_to(closecard.global_position)
 					closest_card = closecard
-					
+	
+	if closest_card == null:
+		print("null")
 	return closest_card
 
 func add_card_to_hand(card):
